@@ -65,12 +65,12 @@ public class HeatingModelTest {
     @Test
     public void validateGetRadiatorModeReturnsValidMode() {
         HeatingModel heatingModel = new HeatingModel();
-        assertEquals(MODE_UNKNOWN, heatingModel.getRadiatorMode());
+        assertEquals(HEATING_MODE_UNKNOWN, heatingModel.getRadiatorMode());
 
         heatingModel.setTsoll(BigDecimal.ONE);
-        assertEquals(MODE_ON, heatingModel.getRadiatorMode());
+        assertEquals(HEATING_MODE_ON, heatingModel.getRadiatorMode());
 
         heatingModel.setKomfort(BigDecimal.ONE);
-        assertEquals(MODE_COMFORT, heatingModel.getRadiatorMode());
+        assertEquals(HEATING_MODE_COMFORT, heatingModel.getRadiatorMode());
     }
 }

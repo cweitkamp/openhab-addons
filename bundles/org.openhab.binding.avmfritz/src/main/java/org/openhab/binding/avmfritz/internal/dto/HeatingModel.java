@@ -104,21 +104,21 @@ public class HeatingModel implements BatteryModel {
 
     public String getRadiatorMode() {
         if (tsoll == null) {
-            return MODE_UNKNOWN;
+            return HEATING_MODE_UNKNOWN;
         } else if (TEMP_FRITZ_ON.compareTo(tsoll) == 0) {
-            return MODE_ON;
+            return HEATING_MODE_ON;
         } else if (TEMP_FRITZ_OFF.compareTo(tsoll) == 0) {
-            return MODE_OFF;
+            return HEATING_MODE_OFF;
         } else if (BigDecimal.ONE.equals(getWindowopenactiv())) {
-            return MODE_WINDOW_OPEN;
+            return HEATING_MODE_WINDOW_OPEN;
         } else if (komfort != null && komfort.compareTo(tsoll) == 0) {
-            return MODE_COMFORT;
+            return HEATING_MODE_COMFORT;
         } else if (absenk != null && absenk.compareTo(tsoll) == 0) {
-            return MODE_ECO;
+            return HEATING_MODE_ECO;
         } else if (BigDecimal.ONE.equals(getBoostactive()) || TEMP_FRITZ_MAX.compareTo(tsoll) == 0) {
-            return MODE_BOOST;
+            return HEATING_MODE_BOOST;
         } else {
-            return MODE_ON;
+            return HEATING_MODE_ON;
         }
     }
 

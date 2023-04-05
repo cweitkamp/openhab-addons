@@ -31,11 +31,19 @@ public class AVMFritzHeatingDeviceHandler extends DeviceHandler implements AVMFr
 
     @Override
     public void setBoostMode(long duration) {
-        handleAction(MODE_BOOST, duration);
+        valudateDuration(duration);
+        handleAction(HEATING_MODE_BOOST, duration);
     }
 
     @Override
     public void setWindowOpenMode(long duration) {
-        handleAction(MODE_WINDOW_OPEN, duration);
+        valudateDuration(duration);
+        handleAction(HEATING_MODE_WINDOW_OPEN, duration);
+    }
+
+    private void valudateDuration(long duration) {
+        if (duration < 0 || 86400 < duration) {
+            throw new IllegalArgumentException("Duration must not be less than zero or greater than 86400");
+        }
     }
 }

@@ -18,8 +18,8 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * See {@link DeviceListModel}.
@@ -29,7 +29,6 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "state", "mode", "lock", "devicelock" })
 @XmlRootElement(name = "switch")
 public class SwitchModel {
     public static final BigDecimal ON = BigDecimal.ONE;
@@ -37,50 +36,19 @@ public class SwitchModel {
     public static final String MODE_FRITZ_AUTO = "auto";
     public static final String MODE_FRITZ_MANUAL = "manuell";
 
-    private BigDecimal state;
-    private String mode;
-    private BigDecimal lock;
-    private BigDecimal devicelock;
-
-    public BigDecimal getState() {
-        return state;
-    }
-
-    public void setState(BigDecimal state) {
-        this.state = state;
-    }
+    public BigDecimal state;
+    public String mode;
+    public BigDecimal lock;
+    @XmlElement(name = "devicelock")
+    public BigDecimal deviceLock;
 
     public String getMode() {
-        if (MODE_FRITZ_AUTO.equals(mode)) {
-            return MODE_AUTO;
-        } else {
-            return MODE_MANUAL;
-        }
-    }
-
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
-
-    public BigDecimal getLock() {
-        return lock;
-    }
-
-    public void setLock(BigDecimal lock) {
-        this.lock = lock;
-    }
-
-    public BigDecimal getDevicelock() {
-        return devicelock;
-    }
-
-    public void setDevicelock(BigDecimal devicelock) {
-        this.devicelock = devicelock;
+        return MODE_FRITZ_AUTO.equals(mode) ? MODE_AUTO : MODE_MANUAL;
     }
 
     @Override
     public String toString() {
         return new StringBuilder().append("[state=").append(state).append(",mode=").append(getMode()).append(",lock=")
-                .append(lock).append(",devicelock=").append(devicelock).append("]").toString();
+                .append(lock).append(",devicelock=").append(deviceLock).append("]").toString();
     }
 }

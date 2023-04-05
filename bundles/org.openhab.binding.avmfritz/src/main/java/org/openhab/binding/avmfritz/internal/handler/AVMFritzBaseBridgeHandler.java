@@ -17,7 +17,6 @@ import static org.openhab.binding.avmfritz.internal.dto.DeviceModel.ETSUnitInfoM
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -186,7 +185,7 @@ public abstract class AVMFritzBaseBridgeHandler extends BaseBridgeHandler {
 
     @Override
     public Collection<Class<? extends ThingHandlerService>> getServices() {
-        return Collections.singleton(AVMFritzDiscoveryService.class);
+        return List.of(AVMFritzDiscoveryService.class);
     }
 
     public boolean registerStatusListener(FritzAhaStatusListener listener) {
@@ -304,6 +303,7 @@ public abstract class AVMFritzBaseBridgeHandler extends BaseBridgeHandler {
 
         if (thingTypeUID != null && (SUPPORTED_BUTTON_THING_TYPES_UIDS.contains(thingTypeUID)
                 || SUPPORTED_HEATING_THING_TYPES.contains(thingTypeUID)
+                || SUPPORTED_POWER_METER_THING_TYPES.contains(thingTypeUID)
                 || SUPPORTED_DEVICE_THING_TYPES_UIDS.contains(thingTypeUID))) {
             return new ThingUID(thingTypeUID, bridgeUID, thingName);
         } else if (device.isHeatingThermostat()) {

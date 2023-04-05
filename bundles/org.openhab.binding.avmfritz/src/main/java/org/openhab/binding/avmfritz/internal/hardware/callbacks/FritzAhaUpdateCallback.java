@@ -63,7 +63,7 @@ public class FritzAhaUpdateCallback extends FritzAhaReauthCallback {
     @Override
     public void execute(int status, String response) {
         super.execute(status, response);
-        logger.trace("Received State response {}", response);
+        logger.trace("Received State response '{}'", response);
         if (isValidRequest()) {
             try {
                 XMLStreamReader xsr = JAXBUtils.XMLINPUTFACTORY.createXMLStreamReader(new StringReader(response));

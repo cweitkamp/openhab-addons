@@ -31,23 +31,15 @@ import javax.xml.bind.annotation.XmlType;
 public class TemperatureModel {
     public static final BigDecimal TEMP_FACTOR = new BigDecimal("0.1");
 
-    private BigDecimal celsius;
-    private BigDecimal offset;
+    public BigDecimal celsius;
+    public BigDecimal offset;
 
     public BigDecimal getCelsius() {
         return celsius != null ? TEMP_FACTOR.multiply(celsius) : BigDecimal.ZERO;
     }
 
-    public void setCelsius(BigDecimal celsius) {
-        this.celsius = celsius;
-    }
-
     public BigDecimal getOffset() {
         return offset != null ? TEMP_FACTOR.multiply(offset) : BigDecimal.ZERO;
-    }
-
-    public void setOffset(BigDecimal offset) {
-        this.offset = offset;
     }
 
     @Override

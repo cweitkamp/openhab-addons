@@ -31,15 +31,7 @@ public class AlertModel {
     public static final BigDecimal ON = BigDecimal.ONE;
     public static final BigDecimal OFF = BigDecimal.ZERO;
 
-    private BigDecimal state;
-
-    public BigDecimal getState() {
-        return state;
-    }
-
-    public void setState(BigDecimal state) {
-        this.state = state;
-    }
+    public BigDecimal state;
 
     public boolean hasObstructionAlarmOccurred() {
         return (state.intValue() & 1) != 0;

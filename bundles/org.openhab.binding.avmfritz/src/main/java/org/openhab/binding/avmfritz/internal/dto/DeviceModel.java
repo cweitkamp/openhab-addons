@@ -30,60 +30,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "device")
 public class DeviceModel extends AVMFritzBaseModel {
 
-    private TemperatureModel temperature;
-    private HumidityModel humidity;
-    private AlertModel alert;
-
+    @XmlElement(name = "temperature")
+    public TemperatureModel temperatureModel;
+    @XmlElement(name = "humidity")
+    public HumidityModel humidityModel;
+    @XmlElement(name = "alert")
+    public AlertModel alertModel;
     @XmlElement(name = "levelcontrol")
-    private LevelControlModel levelControlModel;
-
+    public LevelControlModel levelControlModel;
     @XmlElement(name = "colorcontrol")
-    private ColorControlModel colorControlModel;
-
+    public ColorControlModel colorControlModel;
     @XmlElement(name = "button", type = ButtonModel.class)
     private List<ButtonModel> buttons;
-
     private ETSUnitInfoModel etsiunitinfo;
-
-    public TemperatureModel getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(TemperatureModel temperatureModel) {
-        this.temperature = temperatureModel;
-    }
-
-    public HumidityModel getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(HumidityModel humidityModel) {
-        this.humidity = humidityModel;
-    }
-
-    public AlertModel getAlert() {
-        return alert;
-    }
-
-    public void setAlert(AlertModel alertModel) {
-        this.alert = alertModel;
-    }
-
-    public LevelControlModel getLevelControlModel() {
-        return levelControlModel;
-    }
-
-    public void setLevelControlModel(LevelControlModel levelControlModel) {
-        this.levelControlModel = levelControlModel;
-    }
-
-    public ColorControlModel getColorControlModel() {
-        return colorControlModel;
-    }
-
-    public void setColorControlModel(ColorControlModel colorControlModel) {
-        this.colorControlModel = colorControlModel;
-    }
 
     public List<ButtonModel> getButtons() {
         return buttons == null ? List.of() : buttons;
@@ -103,9 +62,10 @@ public class DeviceModel extends AVMFritzBaseModel {
 
     @Override
     public String toString() {
-        return new StringBuilder(super.toString()).append(temperature).append(",").append(humidity).append(",")
-                .append(alert).append(",").append(levelControlModel).append(",").append(colorControlModel).append(",")
-                .append(getButtons()).append(",").append(etsiunitinfo).append("]").toString();
+        return new StringBuilder(super.toString()).append(temperatureModel).append(",").append(humidityModel)
+                .append(",").append(alertModel).append(",").append(levelControlModel).append(",")
+                .append(colorControlModel).append(",").append(getButtons()).append(",").append(etsiunitinfo).append("]")
+                .toString();
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)

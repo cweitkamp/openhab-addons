@@ -29,14 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class HumidityModel {
 
     @XmlElement(name = "rel_humidity")
-    private BigDecimal relativeHumidity;
+    public BigDecimal relativeHumidity;
 
     public BigDecimal getRelativeHumidity() {
         return relativeHumidity != null ? relativeHumidity : BigDecimal.ZERO;
-    }
-
-    public void setRelativeHumidity(BigDecimal relativeHumidity) {
-        this.relativeHumidity = relativeHumidity;
     }
 
     @Override

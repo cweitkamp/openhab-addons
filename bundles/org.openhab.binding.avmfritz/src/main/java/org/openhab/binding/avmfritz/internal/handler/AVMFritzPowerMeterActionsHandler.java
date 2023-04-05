@@ -16,34 +16,30 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-import org.openhab.binding.avmfritz.internal.actions.AVMFritzHeatingActions;
+import org.openhab.binding.avmfritz.internal.actions.AVMFritzPowerMeterActions;
 import org.openhab.core.thing.binding.ThingHandler;
 import org.openhab.core.thing.binding.ThingHandlerService;
 
 /**
- * The {@link AVMFritzHeatingActionsHandler} defines interface handlers to handle heating thing actions.
+ * The {@link AVMFritzPowerMeterActionsHandler} defines interface handlers to handle power meter thing actions.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public interface AVMFritzHeatingActionsHandler extends ThingHandler {
+public interface AVMFritzPowerMeterActionsHandler extends ThingHandler {
 
     @Override
     default Collection<Class<? extends ThingHandlerService>> getServices() {
-        return List.of(AVMFritzHeatingActions.class);
+        return List.of(AVMFritzPowerMeterActions.class);
     }
 
     /**
-     * Activates the "Boost" mode of the heating thermostat or heating group.
      *
-     * @param duration Duration in seconds, min. 1, max. 86400, 0 for deactivation.
      */
-    void setBoostMode(long duration);
+    void enablePowerMeterHighRefresh(long deviceId);
 
     /**
-     * Activates the "Window Open" mode of the heating thermostat or heating group.
      *
-     * @param duration Duration in seconds, min. 1, max. 86400, 0 for deactivation.
      */
-    void setWindowOpenMode(long duration);
+    void disablePowerMeterHighRefresh();
 }

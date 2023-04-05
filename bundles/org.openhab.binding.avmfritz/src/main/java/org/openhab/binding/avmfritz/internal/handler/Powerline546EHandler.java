@@ -125,13 +125,13 @@ public class Powerline546EHandler extends AVMFritzBaseBridgeHandler implements F
                 updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.NONE, "Device not present");
             }
 
-            updateProperties(device);
+            updateProperties(device, editProperties());
 
             if (device.isPowermeter()) {
-                updatePowermeter(device.getPowermeter());
+                updatePowermeter(device.powermeterModel);
             }
             if (device.isSwitchableOutlet()) {
-                updateSwitchableOutlet(device.getSwitch());
+                updateSwitchableOutlet(device.switchModel);
             }
         }
     }
@@ -140,14 +140,14 @@ public class Powerline546EHandler extends AVMFritzBaseBridgeHandler implements F
         if (switchModel != null) {
             updateThingChannelState(CHANNEL_MODE, new StringType(switchModel.getMode()));
             updateThingChannelState(CHANNEL_LOCKED,
-                    BigDecimal.ZERO.equals(switchModel.getLock()) ? OpenClosedType.OPEN : OpenClosedType.CLOSED);
+                    BigDecimal.ZERO.equals(switchModel.lock) ? OpenClosedType.OPEN : OpenClosedType.CLOSED);
             updateThingChannelState(CHANNEL_DEVICE_LOCKED,
-                    BigDecimal.ZERO.equals(switchModel.getDevicelock()) ? OpenClosedType.OPEN : OpenClosedType.CLOSED);
-            BigDecimal state = switchModel.getState();
+                    BigDecimal.ZERO.equals(switchModel.deviceLock) ? OpenClosedType.OPEN : OpenClosedType.CLOSED);
+            BigDecimal state = switchModel.state;
             if (state == null) {
                 updateThingChannelState(CHANNEL_OUTLET, UnDefType.UNDEF);
             } else {
-                updateThingChannelState(CHANNEL_OUTLET, SwitchModel.ON.equals(state) ? OnOffType.ON : OnOffType.OFF);
+                updateThingChannelState(CHANNEL_OUTLET, OnOffType.from(SwitchModel.ON.equals(state)));
             }
         }
     }
@@ -164,9 +164,9 @@ public class Powerline546EHandler extends AVMFritzBaseBridgeHandler implements F
      * Updates thing properties.
      *
      * @param device the {@link AVMFritzBaseModel}
+     * @param editProperties map of existing properties
      */
-    private void updateProperties(AVMFritzBaseModel device) {
-        Map<String, String> editProperties = editProperties();
+    private void updateProperties(AVMFritzBaseModel device, Map<String, String> editProperties) {
         editProperties.put(Thing.PROPERTY_FIRMWARE_VERSION, device.getFirmwareVersion());
         updateProperties(editProperties);
     }

@@ -12,7 +12,6 @@
  */
 package org.openhab.binding.avmfritz.internal.dto;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -97,7 +96,7 @@ public class DeviceListModel {
 
     public List<AVMFritzBaseModel> getDevicelist() {
         if (devices == null) {
-            devices = Collections.emptyList();
+            devices = List.of();
         }
         return devices;
     }

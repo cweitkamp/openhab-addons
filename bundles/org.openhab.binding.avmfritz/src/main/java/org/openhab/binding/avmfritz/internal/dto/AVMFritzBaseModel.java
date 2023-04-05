@@ -98,13 +98,13 @@ public abstract class AVMFritzBaseModel implements BatteryModel {
     private BigDecimal batterylow;
 
     @XmlElement(name = "switch")
-    private SwitchModel switchModel;
+    public SwitchModel switchModel;
 
     @XmlElement(name = "simpleonoff")
     private @Nullable SimpleOnOffModel simpleOnOffUnit;
 
     @XmlElement(name = "powermeter")
-    private PowerMeterModel powermeterModel;
+    public PowerMeterModel powermeterModel;
 
     @XmlElement(name = "hkr")
     private HeatingModel heatingModel;
@@ -113,28 +113,12 @@ public abstract class AVMFritzBaseModel implements BatteryModel {
         return simpleOnOffUnit;
     }
 
-    public PowerMeterModel getPowermeter() {
-        return powermeterModel;
-    }
-
-    public void setPowermeter(PowerMeterModel powermeter) {
-        this.powermeterModel = powermeter;
-    }
-
     public HeatingModel getHkr() {
         return heatingModel;
     }
 
     public void setHkr(HeatingModel heatingModel) {
         this.heatingModel = heatingModel;
-    }
-
-    public SwitchModel getSwitch() {
-        return switchModel;
-    }
-
-    public void setSwitch(SwitchModel switchModel) {
-        this.switchModel = switchModel;
     }
 
     public String getIdentifier() {
@@ -258,7 +242,7 @@ public abstract class AVMFritzBaseModel implements BatteryModel {
                 .append(deviceId).append(",manufacturer=").append(deviceManufacturer).append(",productname=")
                 .append(productName).append(",fwversion=").append(firmwareVersion).append(",present=").append(present)
                 .append(",name=").append(name).append(",battery=").append(getBattery()).append(",batterylow=")
-                .append(getBatterylow()).append(",").append(getSwitch()).append(",").append(getSimpleOnOffUnit())
-                .append(",").append(getPowermeter()).append(",").append(getHkr()).append(",").toString();
+                .append(getBatterylow()).append(",").append(switchModel).append(",").append(getSimpleOnOffUnit())
+                .append(",").append(powermeterModel).append(",").append(getHkr()).append(",").toString();
     }
 }

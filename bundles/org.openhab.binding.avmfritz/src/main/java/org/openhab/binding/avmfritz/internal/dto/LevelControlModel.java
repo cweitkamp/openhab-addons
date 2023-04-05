@@ -28,26 +28,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "levelcontrol")
 public class LevelControlModel {
 
-    @XmlElement(name = "level")
-    private BigDecimal level;
-
+    public BigDecimal level;
     @XmlElement(name = "levelpercentage")
-    private BigDecimal levelPercentage;
+    public BigDecimal levelPercentage;
 
     public BigDecimal getLevel() {
         return level != null ? level : BigDecimal.ZERO;
     }
 
-    public void setLevel(BigDecimal level) {
-        this.level = level;
-    }
-
     public BigDecimal getLevelPercentage() {
         return levelPercentage != null ? levelPercentage : BigDecimal.ZERO;
-    }
-
-    public void setLevelPercentage(BigDecimal levelPercentage) {
-        this.levelPercentage = levelPercentage;
     }
 
     @Override

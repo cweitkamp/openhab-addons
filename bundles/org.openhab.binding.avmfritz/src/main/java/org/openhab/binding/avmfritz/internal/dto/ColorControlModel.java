@@ -29,7 +29,6 @@ import org.openhab.core.library.types.PercentType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "colorcontrol")
 public class ColorControlModel {
-
     private static final double SATURATION_FACTOR = 2.54;
 
     @XmlAttribute(name = "supported_modes")
