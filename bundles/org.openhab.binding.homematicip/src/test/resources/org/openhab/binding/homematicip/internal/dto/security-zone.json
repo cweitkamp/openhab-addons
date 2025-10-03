@@ -1,0 +1,26 @@
+{
+	"id": "63611d82-43b5-4f3a-b5f3-02700f263878",
+	"homeId": "0aa05b9f-6c4b-4dcf-85d6-e489754b4edd",
+	"metaGroupId": null,
+	"label": "EXTERNAL",
+	"lastStatusUpdate": 1679329177946,
+	"unreach": false,
+	"lowBat": false,
+	"dutyCycle": false,
+	"type": "SECURITY_ZONE",
+	"channels": [
+		{
+			"deviceId": "3014F711A000155D89A381F8",
+			"channelIndex": 0
+		}
+	],
+	"active": true,
+	"silent": false,
+	"ignorableDeviceChannels": [],
+	"windowState": "CLOSED",
+	"motionDetected": null,
+	"presenceDetected": null,
+	"sabotage": null,
+	"zoneAssignmentIndex": "ALARM_MODE_ZONE_2",
+	"configPending": false
+}

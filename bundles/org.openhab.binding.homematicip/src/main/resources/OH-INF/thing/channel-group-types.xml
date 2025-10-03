@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="homematicip"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<channel-group-type id="weather">
+		<label>Current Weather</label>
+		<description>This is the current weather.</description>
+		<channels>
+			<channel id="temperature" typeId="system.outdoor-temperature"/>
+			<channel id="condition" typeId="condition"/>
+			<channel id="min-temperature" typeId="forecasted-min-outdoor-temperature"/>
+			<channel id="max-temperature" typeId="forecasted-max-outdoor-temperature"/>
+			<channel id="humidity" typeId="system.atmospheric-humidity"/>
+			<channel id="wind-speed" typeId="system.wind-speed"/>
+			<channel id="wind-direction" typeId="system.wind-direction"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="security">
+		<label>Security</label>
+		<description>This are controls for the security settings of the home.</description>
+		<channels>
+			<channel id="alarm-mode" typeId="alarm-mode"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="lockable-device">
+		<label>Device Data</label>
+		<description>This are general information about the device.</description>
+		<channels>
+			<channel id="low-battery" typeId="system.low-battery"/>
+			<channel id="signal-strength" typeId="system.signal-strength"/>
+			<channel id="locked" typeId="locked"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="battery-powered-device">
+		<label>Device Data</label>
+		<description>This are general information about the device.</description>
+		<channels>
+			<channel id="low-battery" typeId="system.low-battery"/>
+			<channel id="signal-strength" typeId="system.signal-strength"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="device">
+		<label>Device Data</label>
+		<description>This are general information about the device.</description>
+		<channels>
+			<channel id="signal-strength" typeId="system.signal-strength"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="temperature-and-humidity-sensors">
+		<label>Sensor Data</label>
+		<description>This are current sensor data measured by the device.</description>
+		<channels>
+			<channel id="temperature" typeId="system.indoor-temperature"/>
+			<channel id="humidity" typeId="humidity"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="temperature-sensors">
+		<label>Sensor Data</label>
+		<description>This are current sensor data measured by the device.</description>
+		<channels>
+			<channel id="temperature" typeId="system.indoor-temperature"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="energy-sensors">
+		<label>Sensor Data</label>
+		<description>This are current sensor data measured by the device.</description>
+		<channels>
+			<channel id="energy" typeId="system.electrical-energy"/>
+			<channel id="power" typeId="system.electric-power"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="energy-meter">
+		<label>Sensor Data</label>
+		<description>This are current sensor data measured by the electricity meter.</description>
+		<channels>
+			<channel id="energy-one" typeId="system.electrical-energy">
+				<label>Meter Reading HT</label>
+			</channel>
+			<channel id="energy-two" typeId="system.electrical-energy">
+				<label>Meter Reading NT</label>
+			</channel>
+			<channel id="energy-three" typeId="system.electrical-energy">
+				<label>Meter Reading Feed In</label>
+			</channel>
+			<channel id="power" typeId="system.electric-power"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="gas-meter">
+		<label>Sensor Data</label>
+		<description>This are current sensor data measured by the gas meter.</description>
+		<channels>
+			<channel id="gas-flow" typeId="gas-flow"/>
+			<channel id="gas-volume" typeId="gas-volume"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="shutter-contact">
+		<label>Sensor Data</label>
+		<description>This are current sensor data detected by the device.</description>
+		<channels>
+			<channel id="contact-state" typeId="contact-state"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="temperature-controls">
+		<label>Controls</label>
+		<description>This are controls for the device.</description>
+		<channels>
+			<channel id="temperature" typeId="temperature"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="temperature-controls-with-display-mode">
+		<label>Controls</label>
+		<description>This are controls for the device.</description>
+		<channels>
+			<channel id="temperature" typeId="temperature"/>
+			<channel id="display-mode" typeId="display-mode"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="temperature-controls-with-display-control">
+		<label>Controls</label>
+		<description>This are controls for the device.</description>
+		<channels>
+			<channel id="temperature" typeId="temperature"/>
+			<channel id="display-orientation" typeId="display-orientation"/>
+			<channel id="display-contrast" typeId="display-contrast"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="heating-group-controls">
+		<label>Controls</label>
+		<description>This are controls for the device.</description>
+		<channels>
+			<channel id="mode" typeId="mode"/>
+			<channel id="heating-profile" typeId="heating-profile"/>
+			<channel id="temperature" typeId="temperature"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="power-controls">
+		<label>Controls</label>
+		<description>This are controls for the device.</description>
+		<channels>
+			<channel id="power" typeId="system.power"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="valve">
+		<label>Valve</label>
+		<description>This are current information about the valve.</description>
+		<channels>
+			<channel id="state" typeId="valve-state"/>
+			<channel id="position" typeId="position"/>
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="presence-sensors">
+		<label>Sensor Data</label>
+		<description>This are current sensor data measured by the device.</description>
+		<channels>
+			<channel id="presence" typeId="system.motion"/>
+			<channel id="light-level" typeId="light-level"/>
+		</channels>
+	</channel-group-type>
+</thing:thing-descriptions>
