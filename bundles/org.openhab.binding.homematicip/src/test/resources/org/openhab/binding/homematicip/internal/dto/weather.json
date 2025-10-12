@@ -1,0 +1,11 @@
+{
+	"temperature": 28.8,
+	"weatherCondition": "CLEAR",
+	"weatherDayTime": "DAY",
+	"minTemperature": 27.9,
+	"maxTemperature": 29.6,
+	"humidity": 35,
+	"windSpeed": 6.444,
+	"windDirection": 87,
+	"vaporAmount": 9.922548937357023
+}

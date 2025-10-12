@@ -4,7 +4,9 @@
 	xsi:schemaLocation="https://openhab.org/schemas/addon/v1.0.0 https://openhab.org/schemas/addon-1.0.0.xsd">
 
 	<type>binding</type>
-	<name>HomematicIP Binding</name>
-	<description>This is the binding for HomematicIP.</description>
+	<name>homematic IP Binding</name>
+	<description>This is the binding for homematic IP devices.</description>
+
+	<connection>cloud</connection>
 
 </addon:addon>

@@ -7,11 +7,11 @@
   <parent>
     <groupId>org.openhab.addons.bundles</groupId>
     <artifactId>org.openhab.addons.reactor.bundles</artifactId>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.2-SNAPSHOT</version>
   </parent>
 
   <artifactId>org.openhab.binding.homematicip</artifactId>
 
-  <name>openHAB Add-ons :: Bundles :: HomematicIP Binding</name>
+  <name>openHAB Add-ons :: Bundles :: Homematic IP Binding (beta)</name>
 
 </project>

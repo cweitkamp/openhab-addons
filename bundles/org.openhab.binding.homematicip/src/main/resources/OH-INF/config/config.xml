@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config-description:config-descriptions
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:config-description="https://openhab.org/schemas/config-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/config-description/v1.0.0 https://openhab.org/schemas/config-description-1.0.0.xsd">
+
+	<config-description uri="bridge-type:homematicip:access-point">
+		<parameter name="SGTIN" type="text" required="true">
+			<label>SGTIN</label>
+			<description>SGTIN of your Access Point. Can be found in the homematic IP App.</description>
+		</parameter>
+		<parameter name="authcode" type="text" required="true">
+			<context>password</context>
+			<label>Authorization Code</label>
+			<description></description>
+		</parameter>
+		<parameter name="refreshInterval" type="integer" min="10" unit="min">
+			<label>Refresh Interval</label>
+			<description>Specifies the refresh interval (in minutes).</description>
+			<default>10</default>
+		</parameter>
+	</config-description>
+
+	<config-description uri="thing-type:homematicip:device">
+		<parameter name="id" type="text" required="true">
+			<label>Device Id</label>
+			<description>Id of the device.</description>
+		</parameter>
+	</config-description>
+
+	<config-description uri="thing-type:homematicip:group">
+		<parameter name="id" type="text" required="true">
+			<label>Group Id</label>
+			<description>Id of the group.</description>
+		</parameter>
+	</config-description>
+
+</config-description:config-descriptions>

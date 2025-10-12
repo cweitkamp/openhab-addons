@@ -4,45 +4,243 @@
 	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
 	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
 
-	<!-- Sample Thing Type -->
-	<thing-type id="sample">
-		<!-- Comment this in for Things which need a Bridge to function.
-			<supported-bridge-type-refs>
-			<bridge-type-ref id="HomematicIPBridge" />
-			</supported-bridge-type-refs>
-		-->
+	<bridge-type id="access-point">
+		<label>Access Point</label>
+		<description>homematic IP Access Point (HmIP-HAP). Connects the smartphone with all homematic IP devices.</description>
 
-		<label>HomematicIP Binding Thing</label>
-		<description>Sample thing for HomematicIP Binding</description>
+		<channel-groups>
+			<channel-group id="weather" typeId="weather"/>
+			<channel-group id="security" typeId="security"/>
+		</channel-groups>
 
-		<channels>
-			<channel id="channel1" typeId="sample-channel"/>
-		</channels>
+		<!-- properties>
+			<property name="thingTypeVersion">1</property>
+			</properties -->
 
-		<config-description>
-			<parameter name="hostname" type="text" required="true">
-				<context>network-address</context>
-				<label>Hostname</label>
-				<description>Hostname or IP address of the device</description>
-			</parameter>
-			<parameter name="password" type="text" required="true">
-				<context>password</context>
-				<label>Password</label>
-				<description>Password to access the device</description>
-			</parameter>
-			<parameter name="refreshInterval" type="integer" unit="s" min="1">
-				<label>Refresh Interval</label>
-				<description>Interval the device is polled in sec.</description>
-				<default>600</default>
-				<advanced>true</advanced>
-			</parameter>
-		</config-description>
+		<representation-property>SGTIN</representation-property>
+
+		<config-description-ref uri="bridge-type:homematicip:access-point"/>
+	</bridge-type>
+
+	<thing-type id="shutter-contact">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Window / Door Contact</label>
+		<description>A window / door contact (e.g. HmIP-SWDM or HmIP-SWDO-I). Detects opening and closing of windows and
+			doors.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="battery-powered-device"/>
+			<channel-group id="sensors" typeId="shutter-contact"/>
+		</channel-groups>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
 	</thing-type>
 
-	<!-- Sample Channel Type -->
-	<channel-type id="sample-channel">
-		<item-type>Number:Temperature</item-type>
-		<label>Example Temperature</label><!-- Use uppercase words, except prepositions. 2-3 words, max 25 chars -->
-		<description>Sample channel for HomematicIP Binding</description>
-	</channel-type>
+	<thing-type id="thermostat">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Radiator Thermostat</label>
+		<description>A radiator thermostat (e.g. HmIP-eTRV-2). Controls the radiator according to the individual needs of a
+			user.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="lockable-device"/>
+			<channel-group id="sensors" typeId="temperature-sensors"/>
+			<channel-group id="controls" typeId="temperature-controls"/>
+			<channel-group id="valve" typeId="valve"/>
+		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="thermostat-evo">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Radiator Thermostat Evo</label>
+		<description>A radiator thermostat (e.g. HmIP-eTRV-E). Controls the radiator according to the individual needs of a
+			user.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="lockable-device"/>
+			<channel-group id="sensors" typeId="temperature-sensors"/>
+			<channel-group id="controls" typeId="temperature-controls-with-display-control"/>
+			<channel-group id="valve" typeId="valve"/>
+		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="wall-mounted-thermostat">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Wall Thermostat</label>
+		<description>A wall thermostat with humidity sensor(e.g. HmIP-WTH-2). Time-controlled regulation of the room
+			temperature.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="lockable-device"/>
+			<channel-group id="sensors" typeId="temperature-and-humidity-sensors"/>
+			<channel-group id="controls" typeId="temperature-controls-with-display-mode"/>
+		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">2</property>
+		</properties>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="underfloor-heating-actuator">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Floor Heating Controller</label>
+		<description>An floor heating controller - 12 channels, motorised (e.g. HmIP-FALMOT-C12). Latest control technology
+			for floor heating systems through continuous and energy-efficient control of motorised valve drives.</description>
+
+		<channel-groups>
+			<channel-group id="valve01" typeId="valve"/>
+			<channel-group id="valve02" typeId="valve"/>
+			<channel-group id="valve03" typeId="valve"/>
+			<channel-group id="valve04" typeId="valve"/>
+			<channel-group id="valve05" typeId="valve"/>
+			<channel-group id="valve06" typeId="valve"/>
+			<channel-group id="valve07" typeId="valve"/>
+			<channel-group id="valve08" typeId="valve"/>
+			<channel-group id="valve09" typeId="valve"/>
+			<channel-group id="valve10" typeId="valve"/>
+			<channel-group id="valve11" typeId="valve"/>
+			<channel-group id="valve12" typeId="valve"/>
+		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="outlet">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Pluggable Switch and Meter</label>
+		<description>A pluggable switch and meter (e.g. HmIP-PSM-2). Enables switching of connected devices and metering
+			of
+			energy consumption.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="device"/>
+			<channel-group id="sensors" typeId="energy-sensors"/>
+			<channel-group id="controls" typeId="power-controls"/>
+		</channel-groups>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="energy-sensors-interface">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Energy Sensor Interface</label>
+		<description>An interface for smart meter (e.g. HmIP-ESI-IEC). Acquires all meter readings and the latest consumption
+			data from the electricity meter.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="battery-powered-device"/>
+			<channel-group id="sensors" typeId="energy-meter"/>
+		</channel-groups>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="gas-sensors-interface">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Energy Sensor Interface</label>
+		<description>An interface for gas meter (e.g. HmIP-ESI-GAS). Acquires all meter readings and the latest consumption
+			data from the gas meter.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="battery-powered-device"/>
+			<channel-group id="sensors" typeId="gas-meter"/>
+		</channel-groups>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="presence-sensor">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Presence Sensor</label>
+		<description>A presence sensor (e.g. HmIP-SPI). Detects smallest movements and ambient brightness.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="battery-powered-device"/>
+			<channel-group id="sensors" typeId="presence-sensors"/>
+		</channel-groups>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
+	<thing-type id="heating-group">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+		</supported-bridge-type-refs>
+
+		<label>Heating Group</label>
+		<description>A heating group (e.g. a room). Controls the room according to the individual needs of a user.</description>
+
+		<channel-groups>
+			<channel-group id="sensors" typeId="temperature-and-humidity-sensors"/>
+			<channel-group id="controls" typeId="heating-group-controls"/>
+		</channel-groups>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:group"/>
+	</thing-type>
+
 </thing:thing-descriptions>
