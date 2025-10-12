@@ -13,9 +13,9 @@
 			<channel-group id="security" typeId="security"/>
 		</channel-groups>
 
-		<!-- properties>
+		<properties>
 			<property name="thingTypeVersion">1</property>
-			</properties -->
+		</properties>
 
 		<representation-property>SGTIN</representation-property>
 
@@ -35,6 +35,10 @@
 			<channel-group id="device" typeId="battery-powered-device"/>
 			<channel-group id="sensors" typeId="shutter-contact"/>
 		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
 
 		<representation-property>id</representation-property>
 
@@ -154,8 +158,7 @@
 		</supported-bridge-type-refs>
 
 		<label>Pluggable Switch and Meter</label>
-		<description>A pluggable switch and meter (e.g. HmIP-PSM-2). Enables switching of connected devices and metering
-			of
+		<description>A pluggable switch and meter (e.g. HmIP-PSM-2). Enables switching of connected devices and metering of
 			energy consumption.</description>
 
 		<channel-groups>
@@ -163,6 +166,10 @@
 			<channel-group id="sensors" typeId="energy-sensors"/>
 			<channel-group id="controls" typeId="power-controls"/>
 		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
 
 		<representation-property>id</representation-property>
 
@@ -183,6 +190,10 @@
 			<channel-group id="sensors" typeId="energy-meter"/>
 		</channel-groups>
 
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
 		<representation-property>id</representation-property>
 
 		<config-description-ref uri="thing-type:homematicip:device"/>
@@ -202,6 +213,10 @@
 			<channel-group id="sensors" typeId="gas-meter"/>
 		</channel-groups>
 
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
 		<representation-property>id</representation-property>
 
 		<config-description-ref uri="thing-type:homematicip:device"/>
@@ -220,6 +235,10 @@
 			<channel-group id="sensors" typeId="presence-sensors"/>
 		</channel-groups>
 
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
 		<representation-property>id</representation-property>
 
 		<config-description-ref uri="thing-type:homematicip:device"/>
@@ -237,6 +256,10 @@
 			<channel-group id="sensors" typeId="temperature-and-humidity-sensors"/>
 			<channel-group id="controls" typeId="heating-group-controls"/>
 		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
 
 		<representation-property>id</representation-property>
 

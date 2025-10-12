@@ -74,7 +74,7 @@
 		<label>Sensor Data</label>
 		<description>This are current sensor data measured by the device.</description>
 		<channels>
-			<channel id="energy" typeId="system.electrical-energy"/>
+			<channel id="energy" typeId="system.electric-energy"/>
 			<channel id="power" typeId="system.electric-power"/>
 		</channels>
 	</channel-group-type>
@@ -83,13 +83,13 @@
 		<label>Sensor Data</label>
 		<description>This are current sensor data measured by the electricity meter.</description>
 		<channels>
-			<channel id="energy-one" typeId="system.electrical-energy">
+			<channel id="energy-one" typeId="system.electric-energy">
 				<label>Meter Reading HT</label>
 			</channel>
-			<channel id="energy-two" typeId="system.electrical-energy">
+			<channel id="energy-two" typeId="system.electric-energy">
 				<label>Meter Reading NT</label>
 			</channel>
-			<channel id="energy-three" typeId="system.electrical-energy">
+			<channel id="energy-three" typeId="system.electric-energy">
 				<label>Meter Reading Feed In</label>
 			</channel>
 			<channel id="power" typeId="system.electric-power"/>
