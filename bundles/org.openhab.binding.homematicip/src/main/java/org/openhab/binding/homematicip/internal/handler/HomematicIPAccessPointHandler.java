@@ -78,6 +78,7 @@ public class HomematicIPAccessPointHandler extends BaseBridgeHandler implements 
     private final Logger logger = LoggerFactory.getLogger(HomematicIPAccessPointHandler.class);
 
     private static final long INITIAL_DELAY_IN_SECONDS = 10;
+    private static final long RECONNECT_DELAY_IN_SECONDS = 60;
 
     private final HttpClient httpClient;
     private final WebSocketFactory webSocketFactory;
@@ -193,7 +194,7 @@ public class HomematicIPAccessPointHandler extends BaseBridgeHandler implements 
     private void scheduleWebsocketReconnection() {
         ScheduledFuture<?> localReconnectionJob = reconnectionJob;
         if (localReconnectionJob == null || localReconnectionJob.isCancelled() || localReconnectionJob.isDone()) {
-            logger.debug("Start reconnection job in {} s.", INITIAL_DELAY_IN_SECONDS);
+            logger.debug("Start reconnection job in {} s.", RECONNECT_DELAY_IN_SECONDS);
             reconnectionJob = scheduler.schedule(() -> {
                 HomematicIPWebSocketConnection wc = this.webSocketConnection;
                 if (wc != null) {
@@ -209,7 +210,7 @@ public class HomematicIPAccessPointHandler extends BaseBridgeHandler implements 
                         } catch (ConnectionException e) {
                             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getRawMessage());
                             // retry reconnection
-                            scheduler.schedule(this::scheduleWebsocketReconnection, INITIAL_DELAY_IN_SECONDS,
+                            scheduler.schedule(this::scheduleWebsocketReconnection, RECONNECT_DELAY_IN_SECONDS,
                                     TimeUnit.SECONDS);
                         }
                     } else {
@@ -218,7 +219,7 @@ public class HomematicIPAccessPointHandler extends BaseBridgeHandler implements 
                                 thing.getThingTypeUID());
                     }
                 }
-            }, INITIAL_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+            }, RECONNECT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
         }
     }
 
