@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="gruenstromindex"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<bridge-type id="account">
+		<label>GrünstromIndex Account</label>
+		<description>Provides access to the GrünstromIndex API.</description>
+
+		<semantic-equipment-tag>WebService</semantic-equipment-tag>
+
+		<representation-property>token</representation-property>
+
+		<config-description-ref uri="bridge-type:gruenstromindex:account"/>
+	</bridge-type>
+
+</thing:thing-descriptions>

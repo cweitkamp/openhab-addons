@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="gruenstromindex"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<thing-type id="green-energy-forecast">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="account"/>
+		</supported-bridge-type-refs>
+
+		<label>Green Energy Forecast</label>
+		<description>Provides detailed information about the forecasted renewable energy contribution, CO2 emissions, energy
+			prices, and other relevant data for a specific time period and a specific area.</description>
+
+		<semantic-equipment-tag>WebService</semantic-equipment-tag>
+
+		<channel-groups>
+			<channel-group id="energy-forecast" typeId="hourlyForecast"/>
+		</channel-groups>
+
+		<representation-property>zipcode</representation-property>
+
+		<config-description-ref uri="thing-type:gruenstromindex:green-energy-forecast"/>
+	</thing-type>
+
+</thing:thing-descriptions>
