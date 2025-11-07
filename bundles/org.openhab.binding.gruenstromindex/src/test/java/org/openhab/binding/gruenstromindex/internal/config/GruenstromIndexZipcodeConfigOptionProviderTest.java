@@ -38,6 +38,7 @@ public class GruenstromIndexZipcodeConfigOptionProviderTest {
     @BeforeEach
     public void setup() {
         provider = new GruenstromIndexZipcodeConfigOptionProvider();
+        provider.activate();
     }
 
     @Test

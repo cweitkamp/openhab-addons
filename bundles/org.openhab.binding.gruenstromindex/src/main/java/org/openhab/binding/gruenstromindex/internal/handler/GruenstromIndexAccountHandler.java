@@ -14,9 +14,7 @@ package org.openhab.binding.gruenstromindex.internal.handler;
 
 import static org.openhab.binding.gruenstromindex.internal.GruenstromIndexBindingConstants.TEXT_OFFLINE_CONF_ERROR_NOT_SUPPORTED_REFRESH_INTERVAL;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -25,7 +23,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jetty.client.HttpClient;
 import org.openhab.binding.gruenstromindex.internal.config.GruenstromIndexAccountConfiguration;
-import org.openhab.binding.gruenstromindex.internal.config.GruenstromIndexZipcodeConfigOptionProvider;
 import org.openhab.binding.gruenstromindex.internal.connection.GrunstromIndexConnection;
 import org.openhab.core.thing.Bridge;
 import org.openhab.core.thing.ChannelUID;
@@ -33,7 +30,7 @@ import org.openhab.core.thing.Thing;
 import org.openhab.core.thing.ThingStatus;
 import org.openhab.core.thing.ThingStatusDetail;
 import org.openhab.core.thing.binding.BaseBridgeHandler;
-import org.openhab.core.thing.binding.ThingHandlerService;
+import org.openhab.core.thing.binding.ThingHandler;
 import org.openhab.core.thing.util.ThingHandlerHelper;
 import org.openhab.core.types.Command;
 import org.openhab.core.types.RefreshType;
@@ -51,8 +48,6 @@ public class GruenstromIndexAccountHandler extends BaseBridgeHandler {
 
     private final Logger logger = LoggerFactory.getLogger(GruenstromIndexAccountHandler.class);
 
-    private static final Collection<Class<? extends ThingHandlerService>> SUPPORTED_THING_ACTIONS = Set
-            .of(GruenstromIndexZipcodeConfigOptionProvider.class);
     private static final long INITIAL_DELAY_IN_SECONDS = 15;
 
     private @Nullable ScheduledFuture<?> refreshJob;
@@ -95,6 +90,46 @@ public class GruenstromIndexAccountHandler extends BaseBridgeHandler {
     }
 
     @Override
+    public void dispose() {
+        logger.debug("Dispose GruenstromIndexAccount handler '{}'.", getThing().getUID());
+        ScheduledFuture<?> localRefreshJob = refreshJob;
+        if (localRefreshJob != null && !localRefreshJob.isCancelled()) {
+            logger.debug("Stop refresh job.");
+            if (localRefreshJob.cancel(true)) {
+                refreshJob = null;
+            }
+        }
+    }
+
+    @Override
+    public void childHandlerInitialized(ThingHandler childHandler, Thing childThing) {
+        scheduler.schedule(() -> {
+            updateThing((GruenstromIndexGreenEnergyForecastHandler) childHandler, childThing);
+            determineBridgeStatus();
+        }, INITIAL_DELAY_IN_SECONDS, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void childHandlerDisposed(ThingHandler childHandler, Thing childThing) {
+        determineBridgeStatus();
+    }
+
+    private void determineBridgeStatus() {
+        ThingStatus status = ThingStatus.ONLINE;
+        List<Thing> children = getThing().getThings().stream().filter(Thing::isEnabled).collect(Collectors.toList());
+        if (!children.isEmpty()) {
+            status = ThingStatus.OFFLINE;
+            for (Thing child : children) {
+                if (ThingStatus.ONLINE.equals(child.getStatus())) {
+                    status = ThingStatus.ONLINE;
+                    break;
+                }
+            }
+        }
+        updateStatus(status);
+    }
+
+    @Override
     public void handleCommand(ChannelUID channelUID, Command command) {
         if (command instanceof RefreshType) {
             scheduler.schedule(this::updateThings, INITIAL_DELAY_IN_SECONDS, TimeUnit.SECONDS);
@@ -103,23 +138,18 @@ public class GruenstromIndexAccountHandler extends BaseBridgeHandler {
         }
     }
 
-    @Override
-    public Collection<Class<? extends ThingHandlerService>> getServices() {
-        return SUPPORTED_THING_ACTIONS;
-    }
-
     public GruenstromIndexAccountConfiguration getConfiguration() {
         return config;
     }
 
     private void updateThings() {
         ThingStatus status = ThingStatus.ONLINE;
-        List<Thing> childs = getThing().getThings().stream().filter(Thing::isEnabled).collect(Collectors.toList());
-        if (!childs.isEmpty()) {
+        List<Thing> children = getThing().getThings().stream().filter(Thing::isEnabled).collect(Collectors.toList());
+        if (!children.isEmpty()) {
             status = ThingStatus.OFFLINE;
-            for (Thing thing : childs) {
+            for (Thing child : children) {
                 if (ThingStatus.ONLINE
-                        .equals(updateThing((GruenstromIndexGreenEnergyForecastHandler) thing.getHandler(), thing))) {
+                        .equals(updateThing((GruenstromIndexGreenEnergyForecastHandler) child.getHandler(), child))) {
                     status = ThingStatus.ONLINE;
                 }
             }
@@ -132,7 +162,7 @@ public class GruenstromIndexAccountHandler extends BaseBridgeHandler {
             handler.updateData(connection);
             return thing.getStatus();
         } else {
-            logger.debug("Cannot update gree energy forecast data of thing '{}' as thing handler is null.",
+            logger.debug("Cannot update green energy forecast data of thing '{}' as thing handler is null.",
                     thing.getUID());
             return ThingStatus.OFFLINE;
         }

@@ -16,17 +16,17 @@
 	<channel-type id="forecasted-gruenstromindex">
 		<item-type>Number</item-type>
 		<label>Green Energy Index</label>
-		<description>Forecasted Green Energy Index (GrünstromIndex). Supports persisting Time Series.</description>
+		<description>Forecasted Green Energy Index (GrünstromIndex). Supports persisting TimeSeries.</description>
 		<tags>
 			<tag>Forecast</tag>
 		</tags>
-		<state readOnly="true" pattern="%.0f" min="0" max="1"/>
+		<state readOnly="true" pattern="%.0f" min="0" max="100"/>
 	</channel-type>
 
 	<channel-type id="forecasted-carbondioxide-emissions">
 		<item-type>Number:EmissionIntensity</item-type>
 		<label>CO2 Emissions</label>
-		<description>Forecasted CO2 emissions. Supports persisting Time Series.</description>
+		<description>Forecasted CO2 emissions. Supports persisting TimeSeries.</description>
 		<tags>
 			<tag>Forecast</tag>
 			<tag>CO2</tag>

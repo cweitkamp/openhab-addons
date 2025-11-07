@@ -83,12 +83,6 @@ Example thing configuration goes here.
 Example item configuration goes here.
 ```
 
-### Sitemap Configuration
-
-```perl
-Optional Sitemap configuration goes here.
-Remove this section, if not needed.
-```
 
 ## Any custom content here!
 

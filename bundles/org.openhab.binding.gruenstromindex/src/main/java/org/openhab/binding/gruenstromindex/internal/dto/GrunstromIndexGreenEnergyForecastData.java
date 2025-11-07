@@ -14,6 +14,7 @@ package org.openhab.binding.gruenstromindex.internal.dto;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -42,20 +43,21 @@ public class GrunstromIndexGreenEnergyForecastData {
     public @NonNullByDefault({}) Provisioning provisioning;
 
     /**
+     * Gets a {@link Forecast} element for the given timestamp, where start <= timestamp < end.
      *
-     *
-     * @param timestamp
-     * @return
+     * @param timestamp future timestamp from now up to 72 hours
+     * @return {@link Forecast} element found for the given time or {@code null}
+     * @throws NoSuchElementException if no element can be found for given timestamp
      */
-    public @Nullable Forecast getEnergyForecastData(Instant timestamp) {
+    public @Nullable Forecast getEnergyForecastData(Instant timestamp) throws NoSuchElementException {
         return forecast.stream().filter(element -> !timestamp.isBefore(Instant.ofEpochMilli(element.timeframe.start))
                 && timestamp.isBefore(Instant.ofEpochMilli(element.timeframe.end))).findFirst().get();
     }
 
     /**
+     * Gets a {@link TimeSeries} of the GruenstromIndex forecast values.
      *
-     *
-     * @return
+     * @return {@link TimeSeries}
      */
     public TimeSeries getGrunstromIndexTimeseries() {
         final TimeSeries ts = new TimeSeries(Policy.REPLACE);
@@ -68,9 +70,9 @@ public class GrunstromIndexGreenEnergyForecastData {
     }
 
     /**
+     * Gets a {@link TimeSeries} of the CO2 emission forecast values.
      *
-     *
-     * @return
+     * @return {@link TimeSeries}
      */
     public TimeSeries getCarbondioxideEmissionsTimeseries() {
         final TimeSeries ts = new TimeSeries(Policy.REPLACE);

@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.openhab.binding.gruenstromindex.internal.dto.Location;
-import org.openhab.binding.gruenstromindex.internal.handler.GruenstromIndexAccountHandler;
+import org.openhab.binding.gruenstromindex.internal.handler.GruenstromIndexGreenEnergyForecastHandler;
 import org.openhab.core.config.core.ConfigOptionProvider;
 import org.openhab.core.config.core.ParameterOption;
 import org.openhab.core.thing.binding.ThingHandler;
@@ -54,14 +54,15 @@ public class GruenstromIndexZipcodeConfigOptionProvider implements ConfigOptionP
 
     private final Logger logger = LoggerFactory.getLogger(GruenstromIndexZipcodeConfigOptionProvider.class);
 
-    private @Nullable GruenstromIndexAccountHandler thingHandler;
+    private @Nullable GruenstromIndexGreenEnergyForecastHandler thingHandler;
 
     private List<Location> zipcodes = List.of();
 
     private final Gson gson = new Gson();
 
     @Activate
-    public GruenstromIndexZipcodeConfigOptionProvider() {
+    @Override
+    public void activate() {
         Location[] locations = getObjectFromJson("/zipcodes.de.json", Location[].class);
         if (locations != null) {
             zipcodes = Arrays.asList(locations);
@@ -80,7 +81,7 @@ public class GruenstromIndexZipcodeConfigOptionProvider implements ConfigOptionP
 
     @Override
     public void setThingHandler(@Nullable ThingHandler handler) {
-        this.thingHandler = (GruenstromIndexAccountHandler) handler;
+        this.thingHandler = (GruenstromIndexGreenEnergyForecastHandler) handler;
     }
 
     @Override

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.NoSuchElementException;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.junit.jupiter.api.Test;
@@ -75,14 +76,14 @@ public class GrunstromIndexGreenEnergyForecastDataTest extends AbstractJSONTest 
     }
 
     @Test
-    public void testSpecificElementOfEnergyForcastData() throws IOException {
+    public void testGetEnergyForcastDataReturnsElementForSpecificTime() throws IOException {
         GrunstromIndexGreenEnergyForecastData energyForecastData = getObjectFromJson(PREDICTION_JSON,
                 GrunstromIndexGreenEnergyForecastData.class, gson);
         assertNotNull(energyForecastData);
 
-        // test specific element
-        Instant now = ZonedDateTime.of(2025, 11, 6, 15, 30, 0, 0, ZoneId.systemDefault()).toInstant();
-        Forecast element = energyForecastData.getEnergyForecastData(now);
+        // test specific time
+        Instant someTime = ZonedDateTime.of(2025, 11, 6, 15, 30, 0, 0, ZoneId.systemDefault()).toInstant();
+        Forecast element = energyForecastData.getEnergyForecastData(someTime);
         assertNotNull(element);
 
         assertEquals(1762437600, element.epochtime);
@@ -92,6 +93,61 @@ public class GrunstromIndexGreenEnergyForecastDataTest extends AbstractJSONTest 
         assertEquals(1762437600000L, element.timeframe.start);
         assertEquals(1762441200000L, element.timeframe.end);
         assertEquals("32584", element.zip);
+    }
+
+    @Test
+    public void testGetEnergyForcastDataReturnsElementForExactStartTime() throws IOException {
+        GrunstromIndexGreenEnergyForecastData energyForecastData = getObjectFromJson(PREDICTION_JSON,
+                GrunstromIndexGreenEnergyForecastData.class, gson);
+        assertNotNull(energyForecastData);
+
+        // test exact time
+        Instant someTime = ZonedDateTime.of(2025, 11, 6, 15, 00, 0, 0, ZoneId.systemDefault()).toInstant();
+        Forecast element = energyForecastData.getEnergyForecastData(someTime);
+        assertNotNull(element);
+
+        assertEquals(1762437600, element.epochtime);
+        assertEquals(76.95, element.gsi);
+        assertEquals(96, element.co2GStandard);
+        assertNotNull(element.timeframe);
+        assertEquals(1762437600000L, element.timeframe.start);
+        assertEquals(1762441200000L, element.timeframe.end);
+        assertEquals("32584", element.zip);
+    }
+
+    @Test
+    public void testGetEnergyForcastDataReturnsOtherElementForExactEndTime() throws IOException {
+        GrunstromIndexGreenEnergyForecastData energyForecastData = getObjectFromJson(PREDICTION_JSON,
+                GrunstromIndexGreenEnergyForecastData.class, gson);
+        assertNotNull(energyForecastData);
+
+        // test exact time
+        Instant someTime = ZonedDateTime.of(2025, 11, 6, 16, 00, 0, 0, ZoneId.systemDefault()).toInstant();
+        Forecast element = energyForecastData.getEnergyForecastData(someTime);
+        assertNotNull(element);
+
+        assertNotEquals(1762437600, element.epochtime);
+        assertNotEquals(76.95, element.gsi);
+        assertNotEquals(96, element.co2GStandard);
+        assertNotNull(element.timeframe);
+        assertEquals(1762441200000L, element.timeframe.start);
+        assertEquals(1762444800000L, element.timeframe.end);
+        assertEquals("32584", element.zip);
+    }
+
+    @Test
+    public void testGetEnergyForcastDataThrowsNoSuchElementException() throws IOException {
+        GrunstromIndexGreenEnergyForecastData energyForecastData = getObjectFromJson(PREDICTION_JSON,
+                GrunstromIndexGreenEnergyForecastData.class, gson);
+        assertNotNull(energyForecastData);
+
+        // test past time
+        Instant pastTime = ZonedDateTime.of(2024, 11, 6, 15, 30, 0, 0, ZoneId.systemDefault()).toInstant();
+        assertThrows(NoSuchElementException.class, () -> energyForecastData.getEnergyForecastData(pastTime));
+
+        // test future time
+        Instant futureTime = ZonedDateTime.of(2026, 11, 6, 15, 30, 0, 0, ZoneId.systemDefault()).toInstant();
+        assertThrows(NoSuchElementException.class, () -> energyForecastData.getEnergyForecastData(futureTime));
     }
 
     @Test

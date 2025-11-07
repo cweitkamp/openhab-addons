@@ -15,10 +15,14 @@ package org.openhab.binding.gruenstromindex.internal.handler;
 import static org.openhab.binding.gruenstromindex.internal.GruenstromIndexBindingConstants.*;
 
 import java.time.Instant;
+import java.util.Collection;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.openhab.binding.gruenstromindex.internal.config.GruenstromIndexGreenEnergyForecastConfiguration;
+import org.openhab.binding.gruenstromindex.internal.config.GruenstromIndexZipcodeConfigOptionProvider;
 import org.openhab.binding.gruenstromindex.internal.connection.GrunstromIndexConnection;
 import org.openhab.binding.gruenstromindex.internal.dto.Forecast;
 import org.openhab.binding.gruenstromindex.internal.dto.GrunstromIndexGreenEnergyForecastData;
@@ -33,6 +37,7 @@ import org.openhab.core.thing.Thing;
 import org.openhab.core.thing.ThingStatus;
 import org.openhab.core.thing.ThingStatusDetail;
 import org.openhab.core.thing.binding.BaseThingHandler;
+import org.openhab.core.thing.binding.ThingHandlerService;
 import org.openhab.core.thing.type.ChannelKind;
 import org.openhab.core.types.Command;
 import org.openhab.core.types.RefreshType;
@@ -54,6 +59,9 @@ import com.google.gson.JsonSyntaxException;
 public class GruenstromIndexGreenEnergyForecastHandler extends BaseThingHandler {
 
     private final Logger logger = LoggerFactory.getLogger(GruenstromIndexGreenEnergyForecastHandler.class);
+
+    private static final Collection<Class<? extends ThingHandlerService>> SUPPORTED_THING_ACTIONS = Set
+            .of(GruenstromIndexZipcodeConfigOptionProvider.class);
 
     private @NonNullByDefault({}) GruenstromIndexGreenEnergyForecastConfiguration config;
 
@@ -98,6 +106,11 @@ public class GruenstromIndexGreenEnergyForecastHandler extends BaseThingHandler 
         }
     }
 
+    @Override
+    public Collection<Class<? extends ThingHandlerService>> getServices() {
+        return SUPPORTED_THING_ACTIONS;
+    }
+
     /**
      * Updates data for this location.
      *
@@ -129,29 +142,34 @@ public class GruenstromIndexGreenEnergyForecastHandler extends BaseThingHandler 
     }
 
     private void updateChannels() {
+        logger.debug("Update channels of thing '{}'.", getThing().getUID());
         GrunstromIndexGreenEnergyForecastData localForecastEnergyData = forecastEnergyData;
         if (localForecastEnergyData != null) {
-            Forecast current = localForecastEnergyData.getEnergyForecastData(Instant.now());
-            for (Channel channel : getThing().getChannels()) {
-                ChannelUID channelUID = channel.getUID();
-                if (ChannelKind.STATE.equals(channel.getKind()) && channelUID.isInGroup()
-                        && channelUID.getGroupId() != null && isLinked(channelUID)) {
-                    updateChannel(channelUID, current);
+            try {
+                Forecast current = localForecastEnergyData.getEnergyForecastData(Instant.now());
+                for (Channel channel : getThing().getChannels()) {
+                    ChannelUID channelUID = channel.getUID();
+                    if (ChannelKind.STATE.equals(channel.getKind()) && channelUID.isInGroup()
+                            && channelUID.getGroupId() != null && isLinked(channelUID)) {
+                        updateChannel(channelUID, current);
+                    }
                 }
+            } catch (NoSuchElementException e) {
+                logger.debug("No current forecast data available to update channels.");
             }
         } else {
-            logger.debug("No forecast data available to update of channels.");
+            logger.debug("No forecast data available to update channels.");
         }
     }
 
     private void updateChannel(ChannelUID channelUID, @Nullable Forecast current) {
         String channelGroupId = channelUID.getGroupId();
         if (channelGroupId == null) {
-            logger.debug("Cannot update {} as it has no GroupId", channelUID);
+            logger.debug("Cannot update channel '{}' as it has no GroupId", channelUID);
             return;
         }
         switch (channelGroupId) {
-            case CHANNEL_GROUP_HOURLY_FORECAST:
+            case CHANNEL_GROUP_ENERGY_FORECAST:
                 updateCurrentChannelState(channelUID, current);
                 updateChannelTimeSeries(channelUID);
                 break;

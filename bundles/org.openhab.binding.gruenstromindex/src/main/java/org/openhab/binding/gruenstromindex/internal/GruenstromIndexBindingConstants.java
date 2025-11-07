@@ -26,15 +26,16 @@ public class GruenstromIndexBindingConstants {
 
     public static final String BINDING_ID = "gruenstromindex";
 
+    public static final String ACCOUNT = "account";
     public static final String GREEN_ENERGY_FORECAST = "green-energy-forecast";
 
-    public static final ThingTypeUID THING_TYPE_ACCOUNT = new ThingTypeUID(BINDING_ID, "account");
+    public static final ThingTypeUID THING_TYPE_ACCOUNT = new ThingTypeUID(BINDING_ID, ACCOUNT);
     public static final ThingTypeUID THING_TYPE_GREEN_ENERGY_FORECAST = new ThingTypeUID(BINDING_ID,
             GREEN_ENERGY_FORECAST);
 
     public static final String CONFIG_ZIPCODE = "zipcode";
 
-    public static final String CHANNEL_GROUP_HOURLY_FORECAST = "hourlyForecast";
+    public static final String CHANNEL_GROUP_ENERGY_FORECAST = "energy-forecast";
 
     public static final String CHANNEL_FORECASTED_GRUENSTROMINDEX = "gruenstromindex";
     public static final String CHANNEL_FORECASTED_CARBONDIOXIDE_EMISSIONS = "carbondioxide-emissions";
