@@ -18,7 +18,7 @@ import java.io.IOException;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.junit.jupiter.api.Test;
-import org.openhab.binding.homematicip.internal.dto.AbstractTest;
+import org.openhab.binding.homematicip.internal.dto.AbstractGsonTest;
 
 /**
  * Test cases for {@link SetSetZonesActivationParams} Plain Old Java Objects.
@@ -26,7 +26,7 @@ import org.openhab.binding.homematicip.internal.dto.AbstractTest;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class SetSetZonesActivationParamsTest extends AbstractTest {
+public class SetSetZonesActivationParamsTest extends AbstractGsonTest {
 
     @Test
     public void currentStateUpdateTest() throws IOException {

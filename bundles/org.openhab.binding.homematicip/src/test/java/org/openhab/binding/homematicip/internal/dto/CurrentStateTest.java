@@ -29,7 +29,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class CurrentStateTest extends AbstractTest {
+public class CurrentStateTest extends AbstractGsonTest {
 
     @Test
     public void currentStateUpdateTest() throws IOException {

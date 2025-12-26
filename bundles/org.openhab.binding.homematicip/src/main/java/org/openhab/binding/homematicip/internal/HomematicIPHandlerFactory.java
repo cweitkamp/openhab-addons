@@ -24,6 +24,7 @@ import org.openhab.binding.homematicip.internal.handler.HomematicIPEnergySensors
 import org.openhab.binding.homematicip.internal.handler.HomematicIPGasSensorsInterface;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPHeatingGroupHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPHeatingThermostatHandler;
+import org.openhab.binding.homematicip.internal.handler.HomematicIPHomeControlUnitHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPOutletHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPPresenceSensorHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPShutterContactHandler;
@@ -50,11 +51,11 @@ import org.osgi.service.component.annotations.Reference;
 @Component(configurationPid = "binding.homematicip", service = ThingHandlerFactory.class)
 public class HomematicIPHandlerFactory extends BaseThingHandlerFactory {
 
-    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Set.of(BRIDGE_TYPE_ACCESS_POINT,
-            THING_TYPE_ENERGY_SENSORS_INTERFACE, THING_TYPE_GAS_SENSORS_INTERFACE, THING_TYPE_SHUTTER_CONTACT,
-            THING_TYPE_THERMOSTAT, THING_TYPE_THERMOSTAT_EVO, THING_TYPE_WALL_MOUNTED_THERMOSTAT,
-            THING_TYPE_UNDERFLOOR_HEATING_ACTUATOR, THING_TYPE_OUTLET, THING_TYPE_PRESENCE_SENSOR,
-            THING_TYPE_HEATING_GROUP);
+    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Set.of(BRIDGE_TYPE_HOME_CONTROL_UNIT,
+            BRIDGE_TYPE_ACCESS_POINT, THING_TYPE_ENERGY_SENSORS_INTERFACE, THING_TYPE_GAS_SENSORS_INTERFACE,
+            THING_TYPE_SHUTTER_CONTACT, THING_TYPE_THERMOSTAT, THING_TYPE_THERMOSTAT_EVO,
+            THING_TYPE_WALL_MOUNTED_THERMOSTAT, THING_TYPE_UNDERFLOOR_HEATING_ACTUATOR, THING_TYPE_OUTLET,
+            THING_TYPE_PRESENCE_SENSOR, THING_TYPE_HEATING_GROUP);
 
     private final HttpClient httpClient;
     private final WebSocketFactory webSocketFactory;
@@ -78,9 +79,7 @@ public class HomematicIPHandlerFactory extends BaseThingHandlerFactory {
     protected @Nullable ThingHandler createHandler(Thing thing) {
         ThingTypeUID thingTypeUID = thing.getThingTypeUID();
 
-        if (BRIDGE_TYPE_ACCESS_POINT.equals(thingTypeUID)) {
-            return new HomematicIPAccessPointHandler((Bridge) thing, httpClient, webSocketFactory);
-        } else if (THING_TYPE_ENERGY_SENSORS_INTERFACE.equals(thingTypeUID)) {
+        if (THING_TYPE_ENERGY_SENSORS_INTERFACE.equals(thingTypeUID)) {
             return new HomematicIPEnergySensorsInterface(thing);
         } else if (THING_TYPE_GAS_SENSORS_INTERFACE.equals(thingTypeUID)) {
             return new HomematicIPGasSensorsInterface(thing);
@@ -98,8 +97,11 @@ public class HomematicIPHandlerFactory extends BaseThingHandlerFactory {
             return new HomematicIPPresenceSensorHandler(thing);
         } else if (THING_TYPE_HEATING_GROUP.equals(thingTypeUID)) {
             return new HomematicIPHeatingGroupHandler(thing, homematicIPDynamicStateDescriptionProvider);
+        } else if (BRIDGE_TYPE_HOME_CONTROL_UNIT.equals(thingTypeUID)) {
+            return new HomematicIPHomeControlUnitHandler((Bridge) thing, httpClient, webSocketFactory);
+        } else if (BRIDGE_TYPE_ACCESS_POINT.equals(thingTypeUID)) {
+            return new HomematicIPAccessPointHandler((Bridge) thing, httpClient, webSocketFactory);
         }
-
         return null;
     }
 }

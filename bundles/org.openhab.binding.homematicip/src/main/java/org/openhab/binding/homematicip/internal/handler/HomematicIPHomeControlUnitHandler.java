@@ -15,7 +15,6 @@ package org.openhab.binding.homematicip.internal.handler;
 import static org.openhab.binding.homematicip.internal.HomematicIPBindingConstants.*;
 
 import java.net.URI;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -27,14 +26,14 @@ import java.util.stream.Collectors;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jetty.client.HttpClient;
-import org.openhab.binding.homematicip.internal.config.HomematicIPAccessPointConfiguration;
-import org.openhab.binding.homematicip.internal.connection.HomematicIPCloudHTTPConnection;
-import org.openhab.binding.homematicip.internal.connection.HomematicIPCloudWebSocketConnection;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.openhab.binding.homematicip.internal.config.HomematicIPHomeControlUnitConfiguration;
+import org.openhab.binding.homematicip.internal.connection.HomematicIPLocalHTTPConnection;
+import org.openhab.binding.homematicip.internal.connection.HomematicIPLocalWebSocketConnection;
 import org.openhab.binding.homematicip.internal.connection.HomematicIPWebSocketListener;
-import org.openhab.binding.homematicip.internal.discovery.HomematicIPAccessPointDeviceDiscoveryService;
+import org.openhab.binding.homematicip.internal.discovery.HomematicIPHomeControlUnitDeviceDiscoveryService;
 import org.openhab.binding.homematicip.internal.dto.CurrentState;
 import org.openhab.binding.homematicip.internal.dto.Home;
-import org.openhab.binding.homematicip.internal.dto.Host;
 import org.openhab.binding.homematicip.internal.utils.HomematicIPUtils;
 import org.openhab.core.i18n.CommunicationException;
 import org.openhab.core.i18n.ConfigurationException;
@@ -54,42 +53,53 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 /**
- * The {@link HomematicIPAccessPointHandler} is responsible for handling commands, which are sent to one of the
+ * The {@link HomematicIPHomeControlUnitHandler} is responsible for handling commands, which are sent to one of the
  * channels.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPAccessPointHandler extends AbstractHomematicIPBridgeHandler {
+public class HomematicIPHomeControlUnitHandler extends AbstractHomematicIPBridgeHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(HomematicIPAccessPointHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(HomematicIPHomeControlUnitHandler.class);
 
-    private HomematicIPAccessPointConfiguration config = new HomematicIPAccessPointConfiguration();
-    private @Nullable HomematicIPCloudHTTPConnection httpConnection;
-    private @Nullable HomematicIPCloudWebSocketConnection webSocketConnection;
+    private HomematicIPHomeControlUnitConfiguration config = new HomematicIPHomeControlUnitConfiguration();
+    private @Nullable HomematicIPLocalHTTPConnection httpConnection;
+    private @Nullable HomematicIPLocalWebSocketConnection webSocketConnection;
 
-    protected @Nullable ScheduledFuture<?> refreshJob;
-
-    public HomematicIPAccessPointHandler(Bridge bridge, HttpClient httpClient, WebSocketFactory webSocketFactory) {
+    public HomematicIPHomeControlUnitHandler(Bridge bridge, HttpClient httpClient, WebSocketFactory webSocketFactory) {
         super(bridge, httpClient, webSocketFactory);
     }
 
     @SuppressWarnings("null")
     @Override
     public void initialize() {
-        config = getConfigAs(HomematicIPAccessPointConfiguration.class);
+        config = getConfigAs(HomematicIPHomeControlUnitConfiguration.class);
 
         boolean configValid = true;
-        try {
-            config.generateClientauth();
-        } catch (NoSuchAlgorithmException e) {
-            // should not happen
-            logger.error("Could not create SHA-512 hash for client authentication token.", e);
-            configValid = false;
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR);
+
+        httpConnection = new HomematicIPLocalHTTPConnection(httpClient, gson, config);
+
+        if (config.authtoken == null) {
+            try {
+                String localAuthtoken = httpConnection.requestAuthToken().authToken;
+                if (localAuthtoken == null) {
+                    configValid = false;
+                    updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR,
+                            TEXT_OFFLINE_CONF_ERROR_MISSING_AUTHTHOKEN);
+                } else {
+                    config.authtoken = localAuthtoken;
+                    httpConnection.confirmAuthToken(localAuthtoken);
+                }
+            } catch (CommunicationException e) {
+                configValid = false;
+                updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getLocalizedMessage());
+            } catch (ConfigurationException e) {
+                configValid = false;
+                updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, e.getLocalizedMessage());
+            }
         }
 
         if (configValid) {
@@ -102,35 +112,20 @@ public class HomematicIPAccessPointHandler extends AbstractHomematicIPBridgeHand
                 websocketId = websocketId.substring(websocketId.length() - 20);
             }
 
-            httpConnection = new HomematicIPCloudHTTPConnection(httpClient, gson, config);
-            Host host = Objects.requireNonNullElse(httpConnection.lookupHost(), new Host());
-            httpConnection.setBaseUrl(host.urlREST);
+            SslContextFactory trustAllSslContextFactory = new SslContextFactory.Client( /* trustall= */ true);
 
-            webSocketConnection = new HomematicIPCloudWebSocketConnection(
-                    webSocketFactory.createWebSocketClient(websocketId), gson, config);
+            webSocketConnection = new HomematicIPLocalWebSocketConnection(
+                    webSocketFactory.createWebSocketClient(websocketId, trustAllSslContextFactory), gson, config);
+            // register this as a listener as we want to get notified on successful connection and incoming messages
             webSocketConnection.registerListener(config.SGTIN, this);
-            webSocketConnection.connect(URI.create(host.urlWebSocket));
-
-            ScheduledFuture<?> localRefreshJob = refreshJob;
-            if (localRefreshJob == null || localRefreshJob.isCancelled() || localRefreshJob.isDone()) {
-                logger.debug("Start refresh job at interval {} min.", config.refreshInterval);
-                refreshJob = scheduler.scheduleWithFixedDelay(this::refreshData, INITIAL_DELAY_IN_SECONDS,
-                        TimeUnit.MINUTES.toSeconds(config.refreshInterval), TimeUnit.SECONDS);
-            }
+            webSocketConnection.connect(URI.create(config.getWebsocketURL()));
         }
     }
 
     @Override
     public void dispose() {
         super.dispose();
-        ScheduledFuture<?> localRefreshJob = refreshJob;
-        if (localRefreshJob != null && !localRefreshJob.isCancelled()) {
-            logger.debug("Stop refresh job.");
-            if (localRefreshJob.cancel(true)) {
-                refreshJob = null;
-            }
-        }
-        HomematicIPCloudWebSocketConnection wc = this.webSocketConnection;
+        HomematicIPLocalWebSocketConnection wc = this.webSocketConnection;
         if (wc != null) {
             // unregister this as a listener as we want to prevent a reconnection of the websocket during shut down
             wc.unregisterListener(config.SGTIN);
@@ -141,10 +136,10 @@ public class HomematicIPAccessPointHandler extends AbstractHomematicIPBridgeHand
 
     @Override
     public Collection<Class<? extends ThingHandlerService>> getServices() {
-        return Set.of(HomematicIPAccessPointDeviceDiscoveryService.class);
+        return Set.of(HomematicIPHomeControlUnitDeviceDiscoveryService.class);
     }
 
-    public void registerDiscoveryService(HomematicIPAccessPointDeviceDiscoveryService discoveryService) {
+    public void registerDiscoveryService(HomematicIPHomeControlUnitDeviceDiscoveryService discoveryService) {
         this.discoveryService = discoveryService;
     }
 
@@ -165,6 +160,10 @@ public class HomematicIPAccessPointHandler extends AbstractHomematicIPBridgeHand
                         webSocketConnection.registerListener(deviceId, deviceHandler);
                     }
                 });
+
+        refreshData();
+
+        updateStatus(ThingStatus.ONLINE);
     }
 
     @Override
@@ -173,27 +172,16 @@ public class HomematicIPAccessPointHandler extends AbstractHomematicIPBridgeHand
         if (localReconnectionJob == null || localReconnectionJob.isCancelled() || localReconnectionJob.isDone()) {
             logger.debug("Start reconnection job in {} s.", RECONNECT_DELAY_IN_SECONDS);
             reconnectionJob = scheduler.schedule(() -> {
-                HomematicIPCloudWebSocketConnection wc = this.webSocketConnection;
+                HomematicIPLocalWebSocketConnection wc = this.webSocketConnection;
                 if (wc != null) {
                     wc.disconnect();
-
-                    HomematicIPCloudHTTPConnection hc = this.httpConnection;
-                    if (hc != null) {
-                        Host host = Objects.requireNonNullElse(hc.lookupHost(), new Host());
-                        hc.setBaseUrl(host.urlREST);
-
-                        try {
-                            wc.connect(URI.create(host.urlWebSocket));
-                        } catch (ConnectionException e) {
-                            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getRawMessage());
-                            // retry reconnection
-                            scheduler.schedule(this::scheduleWebsocketReconnection, RECONNECT_DELAY_IN_SECONDS,
-                                    TimeUnit.SECONDS);
-                        }
-                    } else {
-                        logger.error(
-                                "Unable to reconnect websocket. Restart websocket connection manually e.g. by disabling and reenabling Thing '{}'.",
-                                getThing().getUID());
+                    try {
+                        wc.connect(URI.create(config.getWebsocketURL()));
+                    } catch (ConnectionException e) {
+                        updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getRawMessage());
+                        // retry reconnection
+                        scheduler.schedule(this::scheduleWebsocketReconnection, RECONNECT_DELAY_IN_SECONDS,
+                                TimeUnit.SECONDS);
                     }
                 }
             }, RECONNECT_DELAY_IN_SECONDS, TimeUnit.SECONDS);
@@ -202,10 +190,19 @@ public class HomematicIPAccessPointHandler extends AbstractHomematicIPBridgeHand
 
     @Override
     public void messageReceived(JsonObject data) {
-        if (data.has(PROPERTY_WEATHER)) {
-            Home homeData = gson.fromJson(data, Home.class);
-            if (homeData != null) {
-                updateWeatherChannels(homeData);
+        if (data.has(PROPERTY_HOME)) {
+            if (data.has(PROPERTY_DEVICES) && data.has(PROPERTY_GROUPS)) {
+                logger.trace("Update data of Thing '{}'.", getThing().getUID());
+                CurrentState currentState = gson.fromJson(data, CurrentState.class);
+                if (currentState != null) {
+                    updateData(currentState);
+                }
+            } else if (data.has(PROPERTY_WEATHER)) {
+                logger.trace("Update weather data of Thing '{}'.", getThing().getUID());
+                Home homeData = gson.fromJson(data, Home.class);
+                if (homeData != null) {
+                    updateWeatherChannels(homeData);
+                }
             }
         }
         updateStatus(ThingStatus.ONLINE);
@@ -263,71 +260,54 @@ public class HomematicIPAccessPointHandler extends AbstractHomematicIPBridgeHand
                 }
             } catch (CommunicationException e) {
                 updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getRawMessage());
-            } catch (ConfigurationException e) {
-                updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, e.getRawMessage());
             }
         }
     }
 
-    private void setSetZonesActivation(boolean external, boolean internal)
-            throws CommunicationException, ConfigurationException {
-        if (httpConnection != null) {
-            httpConnection.setSetZonesActivation(external, internal);
+    @Override
+    public void setSetPointTemperature(String groupId, double temperature) throws CommunicationException {
+        if (webSocketConnection != null) {
+            webSocketConnection.setSetPointTemperature(groupId, temperature);
         }
     }
 
     @Override
-    public void setSetPointTemperature(String groupId, double temperature)
-            throws CommunicationException, ConfigurationException {
-        if (httpConnection != null) {
-            httpConnection.setSetPointTemperature(groupId, temperature);
+    public void setControlMode(String groupId, String mode) throws CommunicationException {
+        if (webSocketConnection != null) {
+            webSocketConnection.setControlMode(groupId, mode);
         }
     }
 
     @Override
-    public void setControlMode(String groupId, String mode) throws CommunicationException, ConfigurationException {
-        if (httpConnection != null) {
-            httpConnection.setControlMode(groupId, mode);
+    public void setActiveProfile(String groupId, String profileIndex) throws CommunicationException {
+        if (webSocketConnection != null) {
+            webSocketConnection.setActiveProfile(groupId, profileIndex);
         }
     }
 
     @Override
-    public void setActiveProfile(String groupId, String profileIndex)
-            throws CommunicationException, ConfigurationException {
-        if (httpConnection != null) {
-            httpConnection.setActiveProfile(groupId, profileIndex);
+    public void setClimateControlDisplayMode(String deviceId, String displayMode) throws CommunicationException {
+        if (webSocketConnection != null) {
+            webSocketConnection.setClimateControlDisplayMode(deviceId, displayMode);
         }
     }
 
     @Override
-    public void setClimateControlDisplayMode(String deviceId, String displayMode)
-            throws CommunicationException, ConfigurationException {
-        if (httpConnection != null) {
-            httpConnection.setClimateControlDisplayMode(deviceId, displayMode);
+    public void setSwitchState(String deviceId, boolean on) throws CommunicationException {
+        if (webSocketConnection != null) {
+            webSocketConnection.setSwitchState(deviceId, on);
         }
     }
 
-    @Override
-    public void setSwitchState(String deviceId, boolean on) throws CommunicationException, ConfigurationException {
-        if (httpConnection != null) {
-            httpConnection.setSwitchState(deviceId, on);
+    private void setSetZonesActivation(boolean external, boolean internal) throws CommunicationException {
+        if (webSocketConnection != null) {
+            webSocketConnection.setSetZonesActivation(external, internal);
         }
     }
 
     public void refreshData() {
-        try {
-            if (httpConnection != null) {
-                CurrentState currentState = httpConnection.getCurrentState();
-                if (currentState != null) {
-                    updateData(currentState);
-                }
-            }
-        } catch (JsonSyntaxException e) {
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getLocalizedMessage());
-        } catch (CommunicationException e) {
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getRawMessage());
-        } catch (ConfigurationException e) {
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, e.getRawMessage());
+        if (webSocketConnection != null) {
+            webSocketConnection.getSystemState();
         }
     }
 

@@ -4,6 +4,24 @@
 	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
 	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
 
+	<bridge-type id="home-control-unit">
+		<label>Home Control Unit</label>
+		<description>homematic IP Home Control Unit (HmIP-HCU1).</description>
+
+		<channel-groups>
+			<channel-group id="weather" typeId="weather"/>
+			<channel-group id="security" typeId="security"/>
+		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
+		<representation-property>SGTIN</representation-property>
+
+		<config-description-ref uri="bridge-type:homematicip:home-control-unit"/>
+	</bridge-type>
+
 	<bridge-type id="access-point">
 		<label>Access Point</label>
 		<description>homematic IP Access Point (HmIP-HAP). Connects the smartphone with all homematic IP devices.</description>
@@ -25,6 +43,7 @@
 	<thing-type id="shutter-contact">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Window / Door Contact</label>
@@ -48,6 +67,7 @@
 	<thing-type id="thermostat">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Radiator Thermostat</label>
@@ -73,6 +93,7 @@
 	<thing-type id="thermostat-evo">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Radiator Thermostat Evo</label>
@@ -98,10 +119,11 @@
 	<thing-type id="wall-mounted-thermostat">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Wall Thermostat</label>
-		<description>A wall thermostat with humidity sensor(e.g. HmIP-WTH-2). Time-controlled regulation of the room
+		<description>A wall thermostat with humidity sensor (e.g. HmIP-WTH-2). Time-controlled regulation of the room
 			temperature.</description>
 
 		<channel-groups>
@@ -122,6 +144,7 @@
 	<thing-type id="underfloor-heating-actuator">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Floor Heating Controller</label>
@@ -155,6 +178,7 @@
 	<thing-type id="outlet">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Pluggable Switch and Meter</label>
@@ -179,6 +203,7 @@
 	<thing-type id="energy-sensors-interface">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Energy Sensor Interface</label>
@@ -202,6 +227,7 @@
 	<thing-type id="gas-sensors-interface">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Energy Sensor Interface</label>
@@ -225,6 +251,7 @@
 	<thing-type id="presence-sensor">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Presence Sensor</label>
@@ -247,6 +274,7 @@
 	<thing-type id="heating-group">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
 		</supported-bridge-type-refs>
 
 		<label>Heating Group</label>

@@ -40,20 +40,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
- * The {@link HomematicIPAbstractThermostatHandler} is responsible for handling commands, which are sent to one of
+ * The {@link AbstractHomematicIPThermostatHandler} is responsible for handling commands, which are sent to one of
  * the channels.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public abstract class HomematicIPAbstractThermostatHandler extends HomematicIPAbstractDeviceHandler {
+public abstract class AbstractHomematicIPThermostatHandler extends AbstractHomematicIPDeviceHandler {
 
     private static final String ERROR_CODE_CLIENT_ACCESS_DENIED = "CLIENT_ACCESS_DENIED";
     private static final String ERROR_CODE_NOT_HEATING_GROUP = "NOT_HEATING_GROUP";
 
     final Gson gson = new Gson();
 
-    public HomematicIPAbstractThermostatHandler(Thing thing) {
+    public AbstractHomematicIPThermostatHandler(Thing thing) {
         super(thing);
     }
 
@@ -84,7 +84,8 @@ public abstract class HomematicIPAbstractThermostatHandler extends HomematicIPAb
     private void handleDisplayModeCommand(Command command) {
         Bridge bridge = getBridge();
         if (bridge != null) {
-            HomematicIPAccessPointHandler homematicIPAccessPointHandler = (HomematicIPAccessPointHandler) bridge
+            // TODO
+            AbstractHomematicIPBridgeHandler homematicIPAccessPointHandler = (AbstractHomematicIPBridgeHandler) bridge
                     .getHandler();
             if (homematicIPAccessPointHandler != null) {
                 if (command instanceof StringType) {
@@ -123,7 +124,7 @@ public abstract class HomematicIPAbstractThermostatHandler extends HomematicIPAb
     private void setSetPointTemperature(double temperature) {
         Bridge bridge = getBridge();
         if (bridge != null) {
-            HomematicIPAccessPointHandler homematicIPAccessPointHandler = (HomematicIPAccessPointHandler) bridge
+            AbstractHomematicIPBridgeHandler homematicIPAccessPointHandler = (AbstractHomematicIPBridgeHandler) bridge
                     .getHandler();
             if (homematicIPAccessPointHandler != null) {
                 JsonObject localData = data;
@@ -137,15 +138,15 @@ public abstract class HomematicIPAbstractThermostatHandler extends HomematicIPAb
                             try {
                                 homematicIPAccessPointHandler.setSetPointTemperature(groupId, temperature);
                             } catch (ConfigurationException e) {
-                                if (ERROR_CODE_NOT_HEATING_GROUP.equals(e.getRawMessage())) {
-                                    // try next group
-                                    continue;
-                                }
+                                // if (ERROR_CODE_NOT_HEATING_GROUP.equals(e.getRawMessage())) {
+                                // try next group
+                                // continue;
+                                // }
                             } catch (CommunicationException e) {
                                 updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR,
                                         e.getRawMessage());
                             }
-                            break;
+                            // break;
                         }
                     }
                 }

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class WeatherTest extends AbstractTest {
+public class WeatherTest extends AbstractGsonTest {
 
     @Test
     public void weatherUpdateTest() throws IOException {

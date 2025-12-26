@@ -39,13 +39,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
- * The {@link HomematicIPAbstractDeviceHandler} is responsible for handling commands, which are sent to one
+ * The {@link AbstractHomematicIPDeviceHandler} is responsible for handling commands, which are sent to one
  * of the channels.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public abstract class HomematicIPAbstractDeviceHandler extends BaseThingHandler
+public abstract class AbstractHomematicIPDeviceHandler extends BaseThingHandler
         implements HomematicIPWebSocketListener {
 
     final Logger logger = LoggerFactory.getLogger(getClass());
@@ -57,7 +57,7 @@ public abstract class HomematicIPAbstractDeviceHandler extends BaseThingHandler
     @Nullable
     JsonObject data;
 
-    public HomematicIPAbstractDeviceHandler(Thing thing) {
+    public AbstractHomematicIPDeviceHandler(Thing thing) {
         super(thing);
     }
 

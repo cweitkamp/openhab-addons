@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-import org.openhab.binding.homematicip.internal.handler.HomematicIPAccessPointHandler;
+import org.openhab.binding.homematicip.internal.handler.AbstractHomematicIPBridgeHandler;
 import org.openhab.core.config.discovery.AbstractThingHandlerDiscoveryService;
 import org.openhab.core.config.discovery.DiscoveryResult;
 import org.openhab.core.config.discovery.DiscoveryResultBuilder;
@@ -26,7 +26,6 @@ import org.openhab.core.config.discovery.DiscoveryService;
 import org.openhab.core.thing.Thing;
 import org.openhab.core.thing.ThingTypeUID;
 import org.openhab.core.thing.ThingUID;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 import org.slf4j.Logger;
@@ -36,14 +35,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
- * The {@link HomematicIPDeviceDiscoveryService} creates Things based on the found devices on the Access Point.
+ * The {@link AbstractHomematicIPDeviceDiscoveryService} creates Things based on the found devices on the Access Point.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
-@Component(scope = ServiceScope.PROTOTYPE, service = HomematicIPDeviceDiscoveryService.class)
+@Component(scope = ServiceScope.PROTOTYPE, service = AbstractHomematicIPDeviceDiscoveryService.class)
 @NonNullByDefault
-public class HomematicIPDeviceDiscoveryService
-        extends AbstractThingHandlerDiscoveryService<HomematicIPAccessPointHandler> implements DiscoveryService {
+public abstract class AbstractHomematicIPDeviceDiscoveryService<T extends AbstractHomematicIPBridgeHandler>
+        extends AbstractThingHandlerDiscoveryService<T> implements DiscoveryService {
 
     private static final String ENERGY_SENSOR_IEC = "ES_IEC";
     private static final String ENERGY_SENSOR_GAS = "ES_GAS";
@@ -60,36 +59,17 @@ public class HomematicIPDeviceDiscoveryService
 
     private static final String THING_PROPERTY_ID = "id";
 
-    public static final Set<ThingTypeUID> SUPPORTED_THING_TYPES = Set.of(THING_TYPE_ENERGY_SENSORS_INTERFACE,
+    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES = Set.of(THING_TYPE_ENERGY_SENSORS_INTERFACE,
             THING_TYPE_GAS_SENSORS_INTERFACE, THING_TYPE_SHUTTER_CONTACT, THING_TYPE_THERMOSTAT,
             THING_TYPE_THERMOSTAT_EVO, THING_TYPE_WALL_MOUNTED_THERMOSTAT, THING_TYPE_UNDERFLOOR_HEATING_ACTUATOR,
             THING_TYPE_OUTLET, THING_TYPE_PRESENCE_SENSOR, THING_TYPE_HEATING_GROUP);
 
     private static final int TIMEOUT = 10;
 
-    private final Logger logger = LoggerFactory.getLogger(HomematicIPDeviceDiscoveryService.class);
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Activate
-    public HomematicIPDeviceDiscoveryService() {
-        super(HomematicIPAccessPointHandler.class, SUPPORTED_THING_TYPES, TIMEOUT);
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-        thingHandler.registerDiscoveryService(this);
-    }
-
-    @Override
-    public void dispose() {
-        thingHandler.unregisterDiscoveryListener();
-        super.dispose();
-    }
-
-    @Override
-    public void startScan() {
-        logger.debug("Start manual homematic IP devices scan.");
-        thingHandler.updateData();
+    public AbstractHomematicIPDeviceDiscoveryService(Class<T> thingClazz) {
+        super(thingClazz, SUPPORTED_THING_TYPES, TIMEOUT);
     }
 
     @Override
@@ -180,10 +160,11 @@ public class HomematicIPDeviceDiscoveryService
                 // this group can be skipped as it will be handled by the Access Point Handler in a separate Channel
                 // 'alarm-mode'
                 break;
+            case INDOOR_CLIMATE_GROUP:
             case META_GROUP:
             case SECURITY_GROUP:
             case SWITCHING_GROUP:
-                // TODO implement META_GROUP, SECURITY_GROUP and/or SWITCHING_GROUP
+                // TODO implement INDOOR_CLIMATE_GROUP, META_GROUP, SECURITY_GROUP and/or SWITCHING_GROUP
                 break;
             default:
                 logger.debug("Discovered unknown group of type '{}'. Please contact the binding developer.", type);

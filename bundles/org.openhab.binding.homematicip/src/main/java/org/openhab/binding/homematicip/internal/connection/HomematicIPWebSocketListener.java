@@ -17,7 +17,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import com.google.gson.JsonObject;
 
 /**
- * Informs {@link HomematicIPWebSocketConnection} listeners about events and messages.
+ * Informs {@link HomematicIPCloudWebSocketConnection} listeners about events and messages.
  *
  * @author Christoph Weitkamp - Initial contribution
  */

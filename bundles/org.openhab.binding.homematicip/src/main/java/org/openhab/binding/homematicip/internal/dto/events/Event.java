@@ -24,9 +24,11 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Event {
 
+    public static final String EVENT_TYPE_DEVICE_ADDED = "DEVICE_ADDED";
     public static final String EVENT_TYPE_DEVICE_CHANGED = "DEVICE_CHANGED";
     public static final String EVENT_TYPE_GROUP_CHANGED = "GROUP_CHANGED";
     public static final String EVENT_TYPE_HOME_CHANGED = "HOME_CHANGED";
+    public static final String EVENT_TYPE_INCLUSION_REQUESTED = "INCLUSION_REQUESTED";
     public static final String EVENT_TYPE_SECURITY_JOURNAL_CHANGED = "SECURITY_JOURNAL_CHANGED";
 
     @SerializedName("pushEventType")

@@ -12,12 +12,14 @@
  */
 package org.openhab.binding.homematicip.internal.dto.params;
 
+import org.openhab.binding.homematicip.internal.dto.messages.HmipSystemRequestBodyBody;
+
 /**
  * Generated Plain Old Java Objects class for {@link SetClimateControlDisplayParams} from JSON.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
-public class SetClimateControlDisplayParams {
+public class SetClimateControlDisplayParams extends HmipSystemRequestBodyBody {
     public int channelIndex = 1;
     public String deviceId;
     public String display;

@@ -12,12 +12,14 @@
  */
 package org.openhab.binding.homematicip.internal.dto.params;
 
+import org.openhab.binding.homematicip.internal.dto.messages.HmipSystemRequestBodyBody;
+
 /**
  * Generated Plain Old Java Objects class for {@link SetActiveProfileParams} from JSON.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
-public class SetActiveProfileParams {
+public class SetActiveProfileParams extends HmipSystemRequestBodyBody {
     public String groupId;
     public String profileIndex;
 }

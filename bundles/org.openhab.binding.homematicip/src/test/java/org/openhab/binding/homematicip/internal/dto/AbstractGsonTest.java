@@ -27,12 +27,12 @@ import com.google.gson.Gson;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public abstract class AbstractTest {
+public abstract class AbstractGsonTest {
 
     protected final Gson gson = new Gson();
 
     protected <T> T getObjectFromJson(String filename, Class<T> clazz, Gson gson) throws IOException {
-        try (InputStream inputStream = AbstractTest.class.getResourceAsStream(filename)) {
+        try (InputStream inputStream = AbstractGsonTest.class.getResourceAsStream(filename)) {
             if (inputStream == null) {
                 throw new IOException("InputStream is null");
             }

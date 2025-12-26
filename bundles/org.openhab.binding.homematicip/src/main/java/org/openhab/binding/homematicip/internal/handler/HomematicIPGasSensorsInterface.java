@@ -37,7 +37,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPGasSensorsInterface extends HomematicIPAbstractDeviceHandler {
+public class HomematicIPGasSensorsInterface extends AbstractHomematicIPDeviceHandler {
 
     public HomematicIPGasSensorsInterface(Thing thing) {
         super(thing);

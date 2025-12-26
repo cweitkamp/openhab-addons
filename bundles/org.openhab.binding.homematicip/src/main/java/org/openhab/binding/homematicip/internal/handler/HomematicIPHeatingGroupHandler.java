@@ -55,7 +55,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPHeatingGroupHandler extends HomematicIPAbstractDeviceHandler {
+public class HomematicIPHeatingGroupHandler extends AbstractHomematicIPDeviceHandler {
 
     final Gson gson = new Gson();
 
@@ -96,7 +96,7 @@ public class HomematicIPHeatingGroupHandler extends HomematicIPAbstractDeviceHan
     private void handleModeCommand(Command command) {
         Bridge bridge = getBridge();
         if (bridge != null) {
-            HomematicIPAccessPointHandler homematicIPAccessPointHandler = (HomematicIPAccessPointHandler) bridge
+            AbstractHomematicIPBridgeHandler homematicIPAccessPointHandler = (AbstractHomematicIPBridgeHandler) bridge
                     .getHandler();
             if (homematicIPAccessPointHandler != null) {
                 if (command instanceof StringType) {
@@ -118,7 +118,7 @@ public class HomematicIPHeatingGroupHandler extends HomematicIPAbstractDeviceHan
     private void handleHeatingProfileCommand(Command command) {
         Bridge bridge = getBridge();
         if (bridge != null) {
-            HomematicIPAccessPointHandler homematicIPAccessPointHandler = (HomematicIPAccessPointHandler) bridge
+            AbstractHomematicIPBridgeHandler homematicIPAccessPointHandler = (AbstractHomematicIPBridgeHandler) bridge
                     .getHandler();
             if (homematicIPAccessPointHandler != null) {
                 if (command instanceof StringType) {
@@ -152,7 +152,7 @@ public class HomematicIPHeatingGroupHandler extends HomematicIPAbstractDeviceHan
     private void setSetPointTemperature(double temperature) {
         Bridge bridge = getBridge();
         if (bridge != null) {
-            HomematicIPAccessPointHandler homematicIPAccessPointHandler = (HomematicIPAccessPointHandler) bridge
+            AbstractHomematicIPBridgeHandler homematicIPAccessPointHandler = (AbstractHomematicIPBridgeHandler) bridge
                     .getHandler();
             if (homematicIPAccessPointHandler != null) {
                 String groupId = id;

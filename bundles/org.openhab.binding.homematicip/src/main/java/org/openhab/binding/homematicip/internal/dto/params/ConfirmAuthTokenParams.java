@@ -12,13 +12,12 @@
  */
 package org.openhab.binding.homematicip.internal.dto.params;
 
-import org.openhab.binding.homematicip.internal.dto.messages.HmipSystemRequestBodyBody;
-
 /**
- * Generated Plain Old Java Objects class for {@link SetSetZonesActivationParams} from JSON.
+ * Generated Plain Old Java Objects class for {@link ConfirmAuthTokenParams} from JSON.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
-public class SetSetZonesActivationParams extends HmipSystemRequestBodyBody {
-    public ZonesActivationParams zonesActivation = new ZonesActivationParams();
+public class ConfirmAuthTokenParams {
+    public String activationKey;
+    public String authToken;
 }

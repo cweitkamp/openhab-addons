@@ -36,7 +36,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPUnderfloorHeatingActuatorHandler extends HomematicIPAbstractDeviceHandler {
+public class HomematicIPUnderfloorHeatingActuatorHandler extends AbstractHomematicIPDeviceHandler {
 
     private static final Pattern CHANNEL_GROUP_VALVE_PREFIX_PATTERN = Pattern.compile(CHANNEL_GROUP_VALVE + "(\\d+)");
 

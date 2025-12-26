@@ -10,15 +10,13 @@
  *
  * SPDX-License-Identifier: EPL-2.0
  */
-package org.openhab.binding.homematicip.internal.dto.params;
-
-import org.openhab.binding.homematicip.internal.dto.messages.HmipSystemRequestBodyBody;
+package org.openhab.binding.homematicip.internal.dto;
 
 /**
- * Generated Plain Old Java Objects class for {@link SetSetZonesActivationParams} from JSON.
+ * Generated Plain Old Java Objects class for {@link RequestAuthTokenResponse} from JSON.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
-public class SetSetZonesActivationParams extends HmipSystemRequestBodyBody {
-    public ZonesActivationParams zonesActivation = new ZonesActivationParams();
+public class RequestAuthTokenResponse {
+    public String authToken;
 }

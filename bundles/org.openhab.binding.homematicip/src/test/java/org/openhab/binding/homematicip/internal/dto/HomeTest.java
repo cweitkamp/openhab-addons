@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomeTest extends AbstractTest {
+public class HomeTest extends AbstractGsonTest {
 
     @Test
     public void homeUpdateTest() throws IOException {

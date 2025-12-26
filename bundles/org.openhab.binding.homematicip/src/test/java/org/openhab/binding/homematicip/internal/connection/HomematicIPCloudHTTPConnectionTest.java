@@ -26,12 +26,12 @@ import org.openhab.binding.homematicip.internal.dto.params.GetCurrentStateParams
 import com.google.gson.Gson;
 
 /**
- * Test cases for {@link HomematicIPHTTPConnectionTest}.
+ * Test cases for {@link HomematicIPCloudHTTPConnectionTest}.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPHTTPConnectionTest {
+public class HomematicIPCloudHTTPConnectionTest {
 
     private static final HomematicIPAccessPointConfiguration CONFIG = new HomematicIPAccessPointConfiguration();
     private static final String ID = "12345ABCDE";
@@ -39,11 +39,11 @@ public class HomematicIPHTTPConnectionTest {
 
     private final Gson gson = new Gson();
 
-    private @NonNullByDefault({}) HomematicIPHTTPConnection httpConnection;
+    private @NonNullByDefault({}) HomematicIPCloudHTTPConnection httpConnection;
 
     @BeforeEach
     public void setUp() {
-        httpConnection = new HomematicIPHTTPConnection(mock(HttpClient.class), gson, CONFIG);
+        httpConnection = new HomematicIPCloudHTTPConnection(mock(HttpClient.class), gson, CONFIG);
     }
 
     @Test
@@ -59,35 +59,35 @@ public class HomematicIPHTTPConnectionTest {
 
     @Test
     void testBaseUrlChanges() {
-        assertEquals(Host.REST_BASE_URL + HomematicIPHTTPConnection.GET_CURRENT_STATE_PATH,
+        assertEquals(Host.REST_BASE_URL + HomematicIPCloudHTTPConnection.GET_CURRENT_STATE_PATH,
                 httpConnection.getCurrentStateUrl.toString());
-        assertEquals(Host.REST_BASE_URL + HomematicIPHTTPConnection.SET_SET_ZONES_ACTIVATION_PATH,
+        assertEquals(Host.REST_BASE_URL + HomematicIPCloudHTTPConnection.SET_SET_ZONES_ACTIVATION_PATH,
                 httpConnection.setSetZonesActivationUrl.toString());
-        assertEquals(Host.REST_BASE_URL + HomematicIPHTTPConnection.SET_SET_POINT_TEMPERATURE_PATH,
+        assertEquals(Host.REST_BASE_URL + HomematicIPCloudHTTPConnection.SET_SET_POINT_TEMPERATURE_PATH,
                 httpConnection.setSetPointTemperatureUrl.toString());
-        assertEquals(Host.REST_BASE_URL + HomematicIPHTTPConnection.SET_CONTROL_MODE_PATH,
+        assertEquals(Host.REST_BASE_URL + HomematicIPCloudHTTPConnection.SET_CONTROL_MODE_PATH,
                 httpConnection.setControlModeUrl.toString());
-        assertEquals(Host.REST_BASE_URL + HomematicIPHTTPConnection.SET_ACTIVE_PROFILE_PATH,
+        assertEquals(Host.REST_BASE_URL + HomematicIPCloudHTTPConnection.SET_ACTIVE_PROFILE_PATH,
                 httpConnection.setActiveProfileUrl.toString());
-        assertEquals(Host.REST_BASE_URL + HomematicIPHTTPConnection.SET_CLIMATE_CONTROL_DISPLAY_PATH,
+        assertEquals(Host.REST_BASE_URL + HomematicIPCloudHTTPConnection.SET_CLIMATE_CONTROL_DISPLAY_PATH,
                 httpConnection.setClimateControlDisplayUrl.toString());
-        assertEquals(Host.REST_BASE_URL + HomematicIPHTTPConnection.SET_SWITCH_STATE_PATH,
+        assertEquals(Host.REST_BASE_URL + HomematicIPCloudHTTPConnection.SET_SWITCH_STATE_PATH,
                 httpConnection.setSwitchStateUrl.toString());
 
         httpConnection.setBaseUrl(NEW_BASE_URL);
-        assertEquals(NEW_BASE_URL + HomematicIPHTTPConnection.GET_CURRENT_STATE_PATH,
+        assertEquals(NEW_BASE_URL + HomematicIPCloudHTTPConnection.GET_CURRENT_STATE_PATH,
                 httpConnection.getCurrentStateUrl.toString());
-        assertEquals(NEW_BASE_URL + HomematicIPHTTPConnection.SET_SET_ZONES_ACTIVATION_PATH,
+        assertEquals(NEW_BASE_URL + HomematicIPCloudHTTPConnection.SET_SET_ZONES_ACTIVATION_PATH,
                 httpConnection.setSetZonesActivationUrl.toString());
-        assertEquals(NEW_BASE_URL + HomematicIPHTTPConnection.SET_SET_POINT_TEMPERATURE_PATH,
+        assertEquals(NEW_BASE_URL + HomematicIPCloudHTTPConnection.SET_SET_POINT_TEMPERATURE_PATH,
                 httpConnection.setSetPointTemperatureUrl.toString());
-        assertEquals(NEW_BASE_URL + HomematicIPHTTPConnection.SET_CONTROL_MODE_PATH,
+        assertEquals(NEW_BASE_URL + HomematicIPCloudHTTPConnection.SET_CONTROL_MODE_PATH,
                 httpConnection.setControlModeUrl.toString());
-        assertEquals(NEW_BASE_URL + HomematicIPHTTPConnection.SET_ACTIVE_PROFILE_PATH,
+        assertEquals(NEW_BASE_URL + HomematicIPCloudHTTPConnection.SET_ACTIVE_PROFILE_PATH,
                 httpConnection.setActiveProfileUrl.toString());
-        assertEquals(NEW_BASE_URL + HomematicIPHTTPConnection.SET_CLIMATE_CONTROL_DISPLAY_PATH,
+        assertEquals(NEW_BASE_URL + HomematicIPCloudHTTPConnection.SET_CLIMATE_CONTROL_DISPLAY_PATH,
                 httpConnection.setClimateControlDisplayUrl.toString());
-        assertEquals(NEW_BASE_URL + HomematicIPHTTPConnection.SET_SWITCH_STATE_PATH,
+        assertEquals(NEW_BASE_URL + HomematicIPCloudHTTPConnection.SET_SWITCH_STATE_PATH,
                 httpConnection.setSwitchStateUrl.toString());
     }
 }

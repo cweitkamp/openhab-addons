@@ -39,7 +39,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPOutletHandler extends HomematicIPAbstractDeviceHandler {
+public class HomematicIPOutletHandler extends AbstractHomematicIPDeviceHandler {
 
     public HomematicIPOutletHandler(Thing thing) {
         super(thing);
@@ -68,7 +68,7 @@ public class HomematicIPOutletHandler extends HomematicIPAbstractDeviceHandler {
     private void handlePowerCommand(Command command) {
         Bridge bridge = getBridge();
         if (bridge != null) {
-            HomematicIPAccessPointHandler homematicIPAccessPointHandler = (HomematicIPAccessPointHandler) bridge
+            AbstractHomematicIPBridgeHandler homematicIPAccessPointHandler = (AbstractHomematicIPBridgeHandler) bridge
                     .getHandler();
             if (homematicIPAccessPointHandler != null) {
                 if (command instanceof OnOffType) {
@@ -81,7 +81,6 @@ public class HomematicIPOutletHandler extends HomematicIPAbstractDeviceHandler {
                         } catch (CommunicationException e) {
                             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR, e.getRawMessage());
                         }
-
                     }
                 }
             }

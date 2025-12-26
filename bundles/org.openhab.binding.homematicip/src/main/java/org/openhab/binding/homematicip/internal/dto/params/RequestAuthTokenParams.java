@@ -12,13 +12,21 @@
  */
 package org.openhab.binding.homematicip.internal.dto.params;
 
-import org.openhab.binding.homematicip.internal.dto.messages.HmipSystemRequestBodyBody;
+import static org.openhab.binding.homematicip.internal.HomematicIPBindingConstants.*;
 
 /**
- * Generated Plain Old Java Objects class for {@link SetSetZonesActivationParams} from JSON.
+ * Generated Plain Old Java Objects class for {@link RequestAuthTokenParams} from JSON.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
-public class SetSetZonesActivationParams extends HmipSystemRequestBodyBody {
-    public ZonesActivationParams zonesActivation = new ZonesActivationParams();
+public class RequestAuthTokenParams {
+
+    private class FriendlyName {
+        public final String en = PLUGIN_TITLE;
+        public final String de = PLUGIN_TITLE;
+    }
+
+    public String activationKey;
+    public final String pluginId = PLUGIN_ID;
+    public final FriendlyName friendlyName = new FriendlyName();
 }

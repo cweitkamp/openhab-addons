@@ -1,0 +1,583 @@
+{
+	"events": {
+		"0": {
+			"pushEventType": "DEVICE_CHANGED",
+			"device": {
+				"id": "3014F711A00045E2699E1851",
+				"type": "ACCESS_POINT",
+				"homeId": "df512e32-1a49-41a3-b19c-98a81512df98",
+				"lastStatusUpdate": 1766401316874,
+				"label": "ACCESS_POINT",
+				"functionalChannels": {
+					"0": {
+						"label": "",
+						"deviceId": "3014F711A00045E2699E1851",
+						"index": 0,
+						"groupIndex": 0,
+						"functionalChannelType": "ACCESS_CONTROLLER_CHANNEL",
+						"groups": [],
+						"unreach": false,
+						"lowBat": null,
+						"routerModuleEnabled": false,
+						"multicastRoutingEnabled": false,
+						"routerModuleSupported": false,
+						"rssiDeviceValue": null,
+						"rssiPeerValue": null,
+						"configPending": false,
+						"dutyCycle": null,
+						"deviceOverloaded": false,
+						"coProUpdateFailure": false,
+						"coProFaulty": false,
+						"coProRestartNeeded": false,
+						"deviceUndervoltage": false,
+						"deviceOverheated": false,
+						"temperatureOutOfRange": false,
+						"devicePowerFailureDetected": false,
+						"supportedOptionalFeatures": {
+							
+						},
+						"busConfigMismatch": null,
+						"powerShortCircuit": null,
+						"shortCircuitDataLine": null,
+						"profilePeriodLimitReached": null,
+						"mountingOrientation": null,
+						"controlsMountingOrientation": null,
+						"displayMountingOrientation": null,
+						"displayMode": null,
+						"invertedDisplayColors": null,
+						"temperatureHumiditySensorError": null,
+						"temperatureHumiditySensorCommunicationError": null,
+						"particulateMatterSensorError": null,
+						"particulateMatterSensorCommunicationError": null,
+						"sensorError": null,
+						"sensorCommunicationError": null,
+						"displayContrast": null,
+						"lockJammed": null,
+						"deviceDriveError": null,
+						"deviceDriveModeError": null,
+						"deviceCommunicationError": null,
+						"daliBusState": null,
+						"deviceOperationMode": null,
+						"defaultLinkedGroup": [],
+						"operationDays": null,
+						"deviceAliveSignalEnabled": null,
+						"altitude": null,
+						"mountingModuleError": null,
+						"inputLayoutMode": null,
+						"switchChannelMode": null,
+						"frostProtectionError": null,
+						"frostProtectionErrorAcknowledged": null,
+						"valveFlowError": null,
+						"valveWaterError": null,
+						"noDataFromLinkyError": null,
+						"dataDecodingFailedError": null,
+						"ticVersionError": null,
+						"deviceCanBusError": null,
+						"notRechargeableBattery": null,
+						"fanControlMode": null,
+						"signalBrightness": 1.0,
+						"dutyCycleLevel": 0.5,
+						"carrierSenseLevel": 0.0,
+						"filteredMulticastRoutingEnabled": true
+					},
+					"1": {
+						"label": "",
+						"deviceId": "3014F711A00045E2699E1851",
+						"index": 1,
+						"groupIndex": 1,
+						"functionalChannelType": "NOTIFICATION_LIGHT_CHANNEL",
+						"groups": [],
+						"channelRole": null,
+						"supportedOptionalFeatures": {
+							"IOptionalFeatureStatusNotificationSettings": true,
+							"IFeatureOpticalSignalBehaviourState": true
+						},
+						"profileMode": null,
+						"userDesiredProfileMode": "AUTOMATIC",
+						"on": false,
+						"switchVisualization": null,
+						"dimLevel": 0.0,
+						"simpleRGBColorState": "BLACK",
+						"opticalSignalBehaviour": "OFF",
+						"statusNotificationSettings": {
+							"statusNotificationActive": true,
+							"notificationTriggerToCategoryMap": {
+								"DEVICE_BLOCKED_PERMANENTLY": "ERROR_ALARM",
+								"PLUGIN_ERROR": "ERROR_ALARM",
+								"REMOTE_CLIENT_CREATION_ENABLED": "TOP_LED_ONLY",
+								"INTRUSION_ALARM": "ERROR_ALARM",
+								"SAFETY_ALARM": "ERROR_ALARM",
+								"MASS_STORAGE_ERROR": "ERROR_ALARM",
+								"DEVICE_BLOCKED_SABOTAGE": "ERROR_ALARM",
+								"DEVICE_BLOCKED_TEMPORARILY": "ERROR_ALARM"
+							},
+							"notificationCategoryActiveMap": {
+								"ERROR_ALARM": true
+							},
+							"notificationCategoryToDimLevelMap": {
+								"ERROR_ALARM": 1.0
+							},
+							"notificationCategoryToTriggerCounterMap": {
+								"ERROR_ALARM": 0
+							},
+							"notificationCategoryToTimestampMap": {
+								"ERROR_ALARM": null
+							}
+						},
+						"powerUpSwitchState": "PERMANENT_OFF",
+						"powerUpDimLevel": 1.0,
+						"powerUpSimpleRGBColor": "WHITE",
+						"powerUpOpticalSignalBehaviour": "ON",
+						"onMinLevel": 0.05
+					}
+				},
+				"deviceArchetype": "HMIP",
+				"manuallyUpdateForced": false,
+				"firmwareVersionInteger": null,
+				"firmwareVersion": "1.5.16",
+				"availableFirmwareVersion": "UNKNOWN",
+				"serializedGlobalTradeItemNumber": "3014F711A00045E2699E1851",
+				"permanentlyReachable": true,
+				"manufacturerCode": 1,
+				"oem": "eQ-3",
+				"measuredAttributes": {
+					
+				},
+				"updateState": "BACKGROUND_UPDATE_NOT_SUPPORTED",
+				"modelType": "HmIP-HCU1",
+				"modelId": 534,
+				"connectionType": "HMIP_RF",
+				"liveUpdateState": "LIVE_UPDATE_NOT_SUPPORTED"
+			}
+		},
+		"1": {
+			"pushEventType": "HOME_CHANGED",
+			"home": {
+				"weather": {
+					"temperature": 8.83,
+					"weatherCondition": "CLEAR",
+					"weatherDayTime": "NIGHT",
+					"minTemperature": 7.54,
+					"maxTemperature": 8.91,
+					"humidity": 77,
+					"windSpeed": 12.852,
+					"windDirection": 166,
+					"vaporAmount": 6.70610484764067
+				},
+				"metaGroups": [],
+				"clients": [
+					"9ec7dd17-947f-46db-a5fe-4c8416a5ae63",
+					"de683253-5dab-40c3-97c3-ce9fd3d527bf",
+					"419d4468-c3bc-4006-9ebe-dbef6db73c7c"
+				],
+				"connected": true,
+				"currentAPVersion": "",
+				"availableAPVersion": null,
+				"timeZoneId": "Europe/Berlin",
+				"location": {
+					"city": "32584,Löhne,Deutschland",
+					"latitude": "52.1866111",
+					"longitude": "8.7434549"
+				},
+				"pinAssigned": false,
+				"pinChangeTimestamp": 1765439045849,
+				"pinChangeClientLabel": null,
+				"userRightsManagementActive": true,
+				"liveUpdateSupported": true,
+				"dutyCycle": 0.5,
+				"carrierSense": 0.0,
+				"updateState": "UP_TO_DATE",
+				"powerMeterUnitPrice": 0.0,
+				"powerMeterCurrency": "EUR",
+				"deviceUpdateStrategy": "AUTOMATICALLY_IF_POSSIBLE",
+				"lastReadyForUpdateTimestamp": 0,
+				"functionalHomes": {
+					"LIGHT_AND_SHADOW": {
+						"functionalGroups": [],
+						"extendedLinkedSwitchingGroups": [],
+						"extendedLinkedShutterGroups": [],
+						"switchingProfileGroups": [],
+						"shutterProfileGroups": [],
+						"lightSceneEntries": [
+							{
+								"id": 8,
+								"sortingIndex": 10,
+								"label": null,
+								"type": "CUSTOM",
+								"state": "UNUSED",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 5,
+								"sortingIndex": 5,
+								"label": null,
+								"type": "DEFAULT_WATERFALL",
+								"state": "CONFIGURED_WITH_SHORT_TIMES",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 4,
+								"sortingIndex": 4,
+								"label": null,
+								"type": "DEFAULT_SUNSET",
+								"state": "CONFIGURED",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 9,
+								"sortingIndex": 7,
+								"label": null,
+								"type": "DEFAULT_TELEPHONE_SIGNALING",
+								"state": "CONFIGURED",
+								"interrupt": true,
+								"sceneIcon": null
+							},
+							{
+								"id": 2,
+								"sortingIndex": 2,
+								"label": null,
+								"type": "DEFAULT_RAINBOW",
+								"state": "CONFIGURED",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 3,
+								"sortingIndex": 3,
+								"label": null,
+								"type": "DEFAULT_SUNRISE",
+								"state": "CONFIGURED",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 1,
+								"sortingIndex": 1,
+								"label": null,
+								"type": "DEFAULT_CAMPFIRE",
+								"state": "CONFIGURED_WITH_SHORT_TIMES",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 6,
+								"sortingIndex": 6,
+								"label": null,
+								"type": "DEFAULT_FOREST",
+								"state": "CONFIGURED",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 10,
+								"sortingIndex": 8,
+								"label": null,
+								"type": "DEFAULT_GREEN_BILLOW",
+								"state": "CONFIGURED",
+								"interrupt": false,
+								"sceneIcon": null
+							},
+							{
+								"id": 7,
+								"sortingIndex": 9,
+								"label": null,
+								"type": "CUSTOM",
+								"state": "UNUSED",
+								"interrupt": false,
+								"sceneIcon": null
+							}
+						],
+						"extendedLinkedNotificationGroups": [],
+						"solution": "LIGHT_AND_SHADOW",
+						"active": false
+					},
+					"SECURITY_AND_ALARM": {
+						"functionalGroups": [],
+						"alarmEventTimestamp": null,
+						"alarmEventTriggerId": null,
+						"alarmEventDeviceChannel": null,
+						"alarmSecurityJournalEntryType": null,
+						"alarmActive": false,
+						"safetyAlarmEventTimestamp": null,
+						"safetyAlarmEventDeviceChannel": null,
+						"safetyAlarmSecurityJournalEntryType": null,
+						"safetyAlarmActive": false,
+						"intrusionAlarmEventTimestamp": null,
+						"intrusionAlarmEventTriggerId": null,
+						"intrusionAlarmEventTriggerLabel": null,
+						"intrusionAlarmEventDeviceChannel": null,
+						"intrusionAlarmSecurityJournalEntryType": null,
+						"intrusionAlarmActive": false,
+						"securityZones": {
+							"EXTERNAL": "b1ccbd0d-7392-4a15-8f27-6b7c1773f47c",
+							"INTERNAL": "7bc705cf-ee13-41e3-a4af-7652b36247fb"
+						},
+						"securitySwitchingGroups": {
+							"SIREN": "b847f676-feaa-4d4b-883f-deb353a965a7",
+							"PANIC": "5b9552eb-e682-4487-a7f7-9b6e17d734f8",
+							"ALARM": "7d0159f8-e85e-43a0-b394-5cc23bdc80e8",
+							"COMING_HOME": "710001dd-1cf3-470d-a870-55d30b617b95",
+							"BACKUP_ALARM_SIREN": "1416e4f4-9f65-450a-9bf9-8ce769c8b800"
+						},
+						"zoneActivationDelay": 0.0,
+						"intrusionAlertThroughSmokeDetectors": false,
+						"securityZoneActivationMode": "ACTIVATION_IF_ALL_IN_VALID_STATE",
+						"deviceChannelSpecificFunction": {
+							
+						},
+						"waterAlarmGroups": [],
+						"activationInProgress": false,
+						"solution": "SECURITY_AND_ALARM",
+						"active": false
+					},
+					"ACCESS_CONTROL": {
+						"functionalGroups": [],
+						"accessAuthorizationProfileGroups": [],
+						"doorLockAuthorizationProfileGroups": [],
+						"lockProfileGroups": [],
+						"autoRelockProfileGroups": [],
+						"extendedLinkedGarageDoorGroups": [],
+						"extendedLinkedNotificationGroups": [],
+						"solution": "ACCESS_CONTROL",
+						"active": false
+					},
+					"INDOOR_CLIMATE": {
+						"functionalGroups": [],
+						"absenceType": "NOT_ABSENT",
+						"absenceStartTime": null,
+						"absenceEndTime": null,
+						"floorHeatingSpecificGroups": {
+							"HEATING_HUMIDITY_LIMITER": "49e739d5-aef4-45ee-a4c7-1e0c8cc66cd5",
+							"HEATING_TEMPERATURE_LIMITER": "4e9e585c-10cc-48cf-b851-4fedf9983310",
+							"HEATING_COOLING_DEMAND_BOILER": "170199dd-aa92-4e1d-b1a3-eb12157ef1dc",
+							"HEATING_DEHUMIDIFIER": "75aa5754-8a02-4e21-b50c-415a8a271cb9",
+							"HEATING_CHANGEOVER": "48ad45cc-5136-40e5-ac75-ffa75134b96f",
+							"HEATING_EXTERNAL_CLOCK": "ad90128c-2568-42da-84c0-b253e5cde169",
+							"HEATING_COOLING_DEMAND_PUMP": "5218126e-744c-417b-9eec-ffc5c7cdd205"
+						},
+						"ecoTemperature": 17.0,
+						"coolingEnabled": false,
+						"ecoDuration": "PERMANENT",
+						"optimumStartStopEnabled": false,
+						"cooling": null,
+						"deviceChannelSpecificFunction": {
+							
+						},
+						"extendedLinkedVentilationGroups": [],
+						"ventilationProfileGroups": [],
+						"demandControlledVentilationGroups": [],
+						"demandControlledVentilationSpecificGroups": {
+							
+						},
+						"lastVacationTemperature": null,
+						"demandControlledVentilationMode": null,
+						"demandControlledVentilationModeStartTime": null,
+						"demandControlledVentilationModeEndTime": null,
+						"notSelectableDemandControlledVentilationModes": [],
+						"solution": "INDOOR_CLIMATE",
+						"active": false
+					},
+					"WEATHER_AND_ENVIRONMENT": {
+						"functionalGroups": [],
+						"extendedLinkedWateringGroups": [],
+						"wateringProfileGroups": [],
+						"solution": "WEATHER_AND_ENVIRONMENT",
+						"active": false
+					},
+					"ENERGY": {
+						"functionalGroups": [],
+						"energyDashboardChannels": [],
+						"consumptionCurtailmentChannels": [],
+						"productionCurtailmentChannels": [],
+						"productionCurtailed": false,
+						"productionCurtailmentEnd": null,
+						"consumptionCurtailed": false,
+						"consumptionCurtailmentEnd": null,
+						"solution": "ENERGY",
+						"active": false
+					}
+				},
+				"inboxGroup": "9077da96-b35a-4ef1-94f2-fd1b3e0d1700",
+				"apExchangeClientId": null,
+				"apExchangeState": "NONE",
+				"voiceControlSettings": {
+					"language": null,
+					"allowedActiveSecurityZoneIds": [],
+					"stateReportEnabled": {
+						
+					}
+				},
+				"ruleGroups": [
+					"5b9552eb-e682-4487-a7f7-9b6e17d734f8",
+					"710001dd-1cf3-470d-a870-55d30b617b95"
+				],
+				"ruleMetaDatas": {
+					
+				},
+				"liveOTAUStatus": {
+					"liveOTAUState": "INACTIVE",
+					"progress": 0.0,
+					"deviceId": null
+				},
+				"accessPointUpdateStates": {
+					
+				},
+				"accountLinkingStatus": null,
+				"userRightsManagementActiveChangeStatus": {
+					"clientId": "9ec7dd17-947f-46db-a5fe-4c8416a5ae63",
+					"clientLabel": "Christoph",
+					"timestamp": 1765439045849
+				},
+				"accountLinkingStatuses": {
+					
+				},
+				"linkedExternalServices": [],
+				"accountLinkingStatusSet": [],
+				"externalServiceAccountLinkings": [],
+				"pluginInformationMap": {
+					"org.openhab.binding.homematicip": {
+						"id": "org.openhab.binding.homematicip",
+						"localizedLabels": {
+							"en": "homematic IP Binding",
+							"de": "homematic IP Binding"
+						},
+						"pluginRuntimeStatus": "NO_ERROR",
+						"pluginUserMessageMap": {
+							"c48d9092-7a4b-4f04-ad3d-3ffb074b6efb": {
+								"userMessageId": "c48d9092-7a4b-4f04-ad3d-3ffb074b6efb",
+								"timestamp": 1766067744824,
+								"category": "INFO",
+								"behaviorType": "DISMISSIBLE",
+								"localizedTitles": {
+									"en": "homematic IP Binding",
+									"de": "homematic IP Binding"
+								},
+								"localizedMessages": {
+									"en": "Hello world! Binding ready!",
+									"de": "Hello world! Binding ready!"
+								}
+							},
+							"ddf77a6c-6570-4093-89b2-bbbfe586d736": {
+								"userMessageId": "ddf77a6c-6570-4093-89b2-bbbfe586d736",
+								"timestamp": 1766065082,
+								"category": "INFO",
+								"behaviorType": "DISMISSIBLE",
+								"localizedTitles": {
+									"de": "homematic IP Binding",
+									"en": "homematic IP Binding"
+								},
+								"localizedMessages": {
+									"de": "Hello world! Binding ready!",
+									"en": "Hello world! Binding ready!"
+								}
+							}
+						},
+						"pluginUpdateState": null,
+						"lastPluginUpdateStateChanged": null
+					},
+					"de.eq3.plugin.keo": {
+						"id": "de.eq3.plugin.keo",
+						"localizedLabels": {
+							"de": "EEBUS-Plugin",
+							"en": "EEBUS plugin"
+						},
+						"pluginRuntimeStatus": "NO_ERROR",
+						"pluginUserMessageMap": {
+							
+						},
+						"pluginUpdateState": null,
+						"lastPluginUpdateStateChanged": null
+					}
+				},
+				"pendingDeviceExchanges": {
+					
+				},
+				"deviceExchangeErrors": {
+					
+				},
+				"deviceExchangeHistoryEntries": [],
+				"notEntireExcludedAccessPoints": {
+					
+				},
+				"homeExtension": {
+					"homeExtensionType": "CONTROL_UNIT",
+					"connectivityMode": "OFFLINE",
+					"offlineModeLastActivationTimestamp": 1765465418589,
+					"commissioningResponseReceived": true,
+					"initialUpdateDone": true,
+					"initializationDone": true,
+					"systemPasswordAssigned": true,
+					"massStorageDeviceMap": {
+						"1005-USB-FLASH-DRIVE-070C4735475F2F69": {
+							"id": "1005-USB-FLASH-DRIVE-070C4735475F2F69",
+							"label": "1005 USB FLASH DRIVE 070C4735475F2F69",
+							"mountingStatus": "MOUNTED",
+							"mountingStatusChangedTimestamp": 1765438665154,
+							"discUsageStatus": "LESSER_THRESHOLDS",
+							"discUsageStatusChangedTimestamp": 1765438665154
+						}
+					},
+					"systemUpdateConfiguration": {
+						"systemUpdateMode": "AUTOMATIC",
+						"updatePeriods": null,
+						"updateDuringSecurityMode": true,
+						"updatePeriodsEmpty": true
+					},
+					"systemUpdateState": {
+						"updateActionId": null,
+						"currentVersion": "1.5.16",
+						"availableVersion": null,
+						"updateState": "UP_TO_DATE",
+						"updateActionState": "OPEN",
+						"updateTimestamp": null,
+						"updateConfirmationNotificationSent": false
+					},
+					"remoteClientCreationEnabled": false,
+					"remoteClientCreationTimeoutTimestamp": 1765466196531,
+					"wiredLanConnectionState": "UP",
+					"wiFiConnectionState": "DOWN",
+					"wiFiSsid": "",
+					"wiFiApActive": false,
+					"accessPointUpgradeState": null,
+					"developerModeActive": true,
+					"developerModeDeactivationAllowed": false,
+					"pluginApiExposed": true,
+					"developerModeActivationTimestamp": 1765441586722,
+					"telemetryEnabled": "DEFAULT_DISABLED"
+				},
+				"exchangeTimestamp": null,
+				"fixedDefaultGroups": {
+					
+				},
+				"deviceDebugLoggingAllowed": null,
+				"residentGroups": [],
+				"geofenceLocations": [],
+				"conciergeAvatarIcon": null,
+				"supportedOptionalFeatures": {
+					"IFeatureGeofenceAutomation": true,
+					"IFeatureC2cFiltering": true,
+					"IFeatureConciergeAvatar": true
+				},
+				"id": "df512e32-1a49-41a3-b19c-98a81512df98",
+				"userRightsManagementSupported": true,
+				"hueLinkingSupported": false,
+				"measuringBaseURL": "",
+				"externalServiceSupportingMap": {
+					"HUE": 0,
+					"DOORBIRD": 1,
+					"MY_UPLINK": 1,
+					"ALEXA": 1
+				}
+			}
+		}
+	},
+	"origin": {
+		"originType": "DEVICE",
+		"id": "3014F711A00045E2699E1851"
+	},
+	"accessPointId": "3014F711A00045E2699E1851",
+	"timestamp": 1766401316874
+}

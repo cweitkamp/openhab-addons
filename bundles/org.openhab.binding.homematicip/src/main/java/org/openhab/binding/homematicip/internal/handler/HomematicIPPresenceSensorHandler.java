@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPPresenceSensorHandler extends HomematicIPAbstractDeviceHandler {
+public class HomematicIPPresenceSensorHandler extends AbstractHomematicIPDeviceHandler {
 
     public HomematicIPPresenceSensorHandler(Thing thing) {
         super(thing);

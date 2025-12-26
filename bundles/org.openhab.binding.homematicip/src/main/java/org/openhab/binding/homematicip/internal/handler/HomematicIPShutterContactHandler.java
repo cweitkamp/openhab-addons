@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPShutterContactHandler extends HomematicIPAbstractDeviceHandler {
+public class HomematicIPShutterContactHandler extends AbstractHomematicIPDeviceHandler {
 
     private static final String STATE_OPEN = "OPEN";
 

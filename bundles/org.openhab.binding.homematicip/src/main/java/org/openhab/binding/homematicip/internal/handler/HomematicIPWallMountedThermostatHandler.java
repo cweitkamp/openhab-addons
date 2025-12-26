@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPWallMountedThermostatHandler extends HomematicIPAbstractThermostatHandler {
+public class HomematicIPWallMountedThermostatHandler extends AbstractHomematicIPThermostatHandler {
 
     public HomematicIPWallMountedThermostatHandler(Thing thing) {
         super(thing);

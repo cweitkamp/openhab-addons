@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-class SecurityZoneTest extends AbstractTest {
+class SecurityZoneTest extends AbstractGsonTest {
 
     @Test
     public void securityZoneUpdateTest() throws IOException {

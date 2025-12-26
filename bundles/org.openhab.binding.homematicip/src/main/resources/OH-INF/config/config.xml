@@ -4,6 +4,24 @@
 	xmlns:config-description="https://openhab.org/schemas/config-description/v1.0.0"
 	xsi:schemaLocation="https://openhab.org/schemas/config-description/v1.0.0 https://openhab.org/schemas/config-description-1.0.0.xsd">
 
+	<config-description uri="bridge-type:homematicip:home-control-unit">
+		<parameter name="SGTIN" type="text" required="true">
+			<label>SGTIN</label>
+			<description>SGTIN of your Home Control Unit. Can be found on the bottom of your Home Control Unit.</description>
+		</parameter>
+		<parameter name="activationKey" type="text" required="true">
+			<label>Activation Key</label>
+			<description>The activation key generated in the developer mode page of your HCUweb. The activation key can be used
+				only once and expires after a certain period.</description>
+		</parameter>
+		<parameter name="authtoken" type="text">
+			<advanced>true</advanced>
+			<context>password</context>
+			<label>Authorization Token</label>
+			<description>The authorization token requested from the Connect API. Will be set from the binding.</description>
+		</parameter>
+	</config-description>
+
 	<config-description uri="bridge-type:homematicip:access-point">
 		<parameter name="SGTIN" type="text" required="true">
 			<label>SGTIN</label>

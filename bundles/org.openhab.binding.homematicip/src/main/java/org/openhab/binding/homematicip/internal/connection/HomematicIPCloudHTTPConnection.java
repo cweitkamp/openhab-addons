@@ -56,12 +56,12 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 /**
- * The {@link HomematicIPHTTPConnection} is responsible for handling the connections to the homematic IP REST API.
+ * The {@link HomematicIPCloudHTTPConnection} is responsible for handling the connections to the homematic IP REST API.
  *
  * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class HomematicIPHTTPConnection {
+public class HomematicIPCloudHTTPConnection {
 
     private static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
     private static final String VERSION = "12";
@@ -78,7 +78,7 @@ public class HomematicIPHTTPConnection {
     static final String SET_CLIMATE_CONTROL_DISPLAY_PATH = "/hmip/device/configuration/setClimateControlDisplay";
     static final String SET_SWITCH_STATE_PATH = "/hmip/device/control/setSwitchState";
 
-    private final Logger logger = LoggerFactory.getLogger(HomematicIPHTTPConnection.class);
+    private final Logger logger = LoggerFactory.getLogger(HomematicIPCloudHTTPConnection.class);
 
     private final HttpClient httpClient;
     private final Gson gson;
@@ -94,7 +94,8 @@ public class HomematicIPHTTPConnection {
     URI setClimateControlDisplayUrl = URI.create(Host.REST_BASE_URL + SET_CLIMATE_CONTROL_DISPLAY_PATH);
     URI setSwitchStateUrl = URI.create(Host.REST_BASE_URL + SET_SWITCH_STATE_PATH);
 
-    public HomematicIPHTTPConnection(HttpClient httpClient, Gson gson, HomematicIPAccessPointConfiguration config) {
+    public HomematicIPCloudHTTPConnection(HttpClient httpClient, Gson gson,
+            HomematicIPAccessPointConfiguration config) {
         this.httpClient = httpClient;
         this.gson = gson;
         this.config = config;
@@ -143,10 +144,10 @@ public class HomematicIPHTTPConnection {
 
     public void setSetPointTemperature(String groupId, double temperature)
             throws CommunicationException, ConfigurationException {
-        SetSetPointTemperatureParams setPointTemperatureParams = new SetSetPointTemperatureParams();
-        setPointTemperatureParams.groupId = groupId;
-        setPointTemperatureParams.setPointTemperature = temperature;
-        post(setSetPointTemperatureUrl, new StringContentProvider(gson.toJson(setPointTemperatureParams)));
+        SetSetPointTemperatureParams setSetPointTemperatureParams = new SetSetPointTemperatureParams();
+        setSetPointTemperatureParams.groupId = groupId;
+        setSetPointTemperatureParams.setPointTemperature = temperature;
+        post(setSetPointTemperatureUrl, new StringContentProvider(gson.toJson(setSetPointTemperatureParams)));
     }
 
     public void setControlMode(String groupId, String mode) throws CommunicationException, ConfigurationException {

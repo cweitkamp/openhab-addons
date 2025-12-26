@@ -32,12 +32,19 @@ public class HomematicIPBindingConstants {
     public static final String TEXT_OFFLINE_WEBSOCKET_CLOSED = "@text/offline.websocket-closed";
     public static final String TEXT_OFFLINE_WEBSOCKET_ERROR = "@text/offline.websocket-error";
     public static final String TEXT_OFFLINE_WEBSOCKET_SSL_ERROR = "@text/offline.websocket-ssl-error";
+    public static final String TEXT_OFFLINE_WEBSOCKET_UPGRADE_ERROR = "@text/offline.websocket-upgrade-error";
+    public static final String TEXT_OFFLINE_WEBSOCKET_NO_ROUTE_TO_HOST_ERROR = "@text/offline.websocket-no-route-to-host-error";
+    public static final String TEXT_OFFLINE_WEBSOCKET_UNKNOWN_HOST_ERROR = "@text/offline.websocket-unknown-host-error";
     public static final String TEXT_OFFLINE_CONF_ERROR_UNKNOWN = "@text/offline.conf-error-unknown";
     public static final String TEXT_OFFLINE_CONF_ERROR_MISSING_ID = "@text/offline.conf-error-missing-id";
     public static final String TEXT_OFFLINE_CONF_ERROR_INSUFFICIENT_USER_ROLE = "@text/offline.conf-error-insufficient-user-role";
+    public static final String TEXT_OFFLINE_CONF_ERROR_MISSING_AUTHTHOKEN = "@text/offline.conf-error-missing-authtoken";
 
     public static final String BINDING_ID = "homematicip";
+    public static final String PLUGIN_ID = "org.openhab.binding." + BINDING_ID;
+    public static final String PLUGIN_TITLE = "homematic IP Binding";
 
+    public static final ThingTypeUID BRIDGE_TYPE_HOME_CONTROL_UNIT = new ThingTypeUID(BINDING_ID, "home-control-unit");
     public static final ThingTypeUID BRIDGE_TYPE_ACCESS_POINT = new ThingTypeUID(BINDING_ID, "access-point");
     public static final ThingTypeUID THING_TYPE_ENERGY_SENSORS_INTERFACE = new ThingTypeUID(BINDING_ID,
             "energy-sensors-interface");
@@ -90,7 +97,11 @@ public class HomematicIPBindingConstants {
     public static final String CHANNEL_LIGHT_LEVEL = "light-level";
     public static final String CHANNEL_MODE = "mode";
 
+    public static final String PROPERTY_HOME = "home";
+    public static final String PROPERTY_DEVICES = "devices";
+    public static final String PROPERTY_GROUPS = "groups";
     public static final String PROPERTY_WEATHER = "weather";
+    public static final String PROPERTY_ID = "id";
     public static final String PROPERTY_TYPE = "type";
     public static final String PROPERTY_FIRMWARE_VERSION = "firmwareVersion";
     public static final String PROPERTY_MODEL_TYPE = "modelType";
@@ -130,6 +141,7 @@ public class HomematicIPBindingConstants {
     public static final String PROPERTY_ILLUMINATION = "illumination";
 
     public static final String HEATING_GROUP = "HEATING";
+    public static final String INDOOR_CLIMATE_GROUP = "INDOOR_CLIMATE";
     public static final String META_GROUP = "META";
     public static final String SECURITY_GROUP = "SECURITY";
     public static final String SECURITY_ZONE_GROUP = "SECURITY_ZONE";
