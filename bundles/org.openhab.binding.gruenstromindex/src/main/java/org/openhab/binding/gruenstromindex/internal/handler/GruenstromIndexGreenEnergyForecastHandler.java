@@ -64,8 +64,7 @@ public class GruenstromIndexGreenEnergyForecastHandler extends BaseThingHandler 
             .of(GruenstromIndexZipcodeConfigOptionProvider.class);
 
     private @NonNullByDefault({}) GruenstromIndexGreenEnergyForecastConfiguration config;
-
-    private @Nullable String zipcode;
+    private @NonNullByDefault({}) String zipcode;
     private @Nullable GrunstromIndexGreenEnergyForecastData forecastEnergyData;
 
     public GruenstromIndexGreenEnergyForecastHandler(Thing thing) {
