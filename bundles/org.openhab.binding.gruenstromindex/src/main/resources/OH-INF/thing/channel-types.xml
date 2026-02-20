@@ -16,7 +16,7 @@
 	<channel-type id="forecasted-gruenstromindex">
 		<item-type>Number</item-type>
 		<label>Green Energy Index</label>
-		<description>Forecasted Green Energy Index (GrünstromIndex). Supports persisting TimeSeries.</description>
+		<description>Forecasted Green Energy Index (GrünstromIndex). Supports TimeSeries.</description>
 		<tags>
 			<tag>Forecast</tag>
 		</tags>
@@ -26,7 +26,7 @@
 	<channel-type id="forecasted-carbondioxide-emissions">
 		<item-type>Number:EmissionIntensity</item-type>
 		<label>CO2 Emissions</label>
-		<description>Forecasted CO2 emissions. Supports persisting TimeSeries.</description>
+		<description>Forecasted CO2 emissions. Supports TimeSeries.</description>
 		<tags>
 			<tag>Forecast</tag>
 			<tag>CO2</tag>

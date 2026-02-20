@@ -10,8 +10,8 @@
 		</supported-bridge-type-refs>
 
 		<label>Green Energy Forecast</label>
-		<description>Provides detailed information about the forecasted renewable energy contribution, CO2 emissions, energy
-			prices, and other relevant data for a specific time period and a specific area.</description>
+		<description>Provides detailed information about the forecasted CO2 emissions for a specific time period and a
+			specific area in Germany.</description>
 
 		<semantic-equipment-tag>WebService</semantic-equipment-tag>
 
