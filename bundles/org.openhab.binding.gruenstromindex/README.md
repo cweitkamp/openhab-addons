@@ -2,7 +2,7 @@
 
 https://gruenstromindex.de/
 
-The GrünstromIndex (Green Power Index) is a measure used to indicate the availability of renewable energy in the electricity grid at any given time.
+The GrünstromIndex (Green Power Index, GSI) is a measure used to indicate the availability of renewable energy in the electricity grid at any given time.
 It is calculated based on real-time data about the share of renewable energy sources, such as wind and solar power, in the overall energy mix.
 The GrünstromIndex provides forecasts and current status updates to help consumers, businesses, and energy managers optimize their electricity usage based on when the grid is supplied with the most green energy.
 By integrating the GrünstromIndex into energy management systems, users can automate the scheduling of energy-intensive tasks—like charging electric vehicles or heating water—during periods when renewable energy is most abundant, reducing carbon footprints and enhancing grid stability.
@@ -36,10 +36,10 @@ The `account` Thing has no Channels.
 
 The `green-energy-forecast` Thing has the following Channels:
 
-| Channel                 | Type                     | Read/Write | Description                                                          |
-|-------------------------|--------------------------|------------|----------------------------------------------------------------------|
-| gruenstromindex         | Number:EmissionIntensity | R          | Forecasted Green Energy Index (GrünstromIndex). Supports TimeSeries. |
-| carbondioxide-emissions | Number                   | R          | Forecasted CO2 emissions. Supports TimeSeries.                       |
+| Channel                 | Type                     | Read/Write | Description                                                              |
+|-------------------------|--------------------------|------------|--------------------------------------------------------------------------|
+| gruenstromindex         | Number:EmissionIntensity | R          | Forecasted GrünstromIndex (Green Power Index, GSI). Supports TimeSeries. |
+| carbondioxide-emissions | Number                   | R          | Forecasted CO2 emissions. Supports TimeSeries.                           |
 
 ## Example
 

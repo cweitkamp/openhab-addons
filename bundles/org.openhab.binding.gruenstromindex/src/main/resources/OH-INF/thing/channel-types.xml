@@ -15,8 +15,8 @@
 
 	<channel-type id="forecasted-gruenstromindex">
 		<item-type>Number</item-type>
-		<label>Green Energy Index</label>
-		<description>Forecasted Green Energy Index (GrünstromIndex). Supports TimeSeries.</description>
+		<label>Green Power Index</label>
+		<description>Forecasted GrünstromIndex (Green Power Index, GSI). Supports TimeSeries.</description>
 		<tags>
 			<tag>Forecast</tag>
 		</tags>
