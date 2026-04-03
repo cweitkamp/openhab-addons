@@ -47,6 +47,9 @@ import org.slf4j.LoggerFactory;
 public class EcoflowDeviceDiscoveryService extends AbstractThingHandlerDiscoveryService<EcoflowApiHandler> {
     private final Logger logger = LoggerFactory.getLogger(EcoflowDeviceDiscoveryService.class);
 
+    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Set.of(THING_TYPE_DELTA2, THING_TYPE_DELTA2MAX,
+            THING_TYPE_POWER_OCEAN, THING_TYPE_POWERSTREAM);
+
     private static final int DISCOVER_TIMEOUT_SECONDS = 10;
     private Optional<EcoflowApi> api = Optional.empty();
     private final SchedulerTask onDemandScanTask = new SchedulerTask(scheduler, logger, "OnDemandScan",
@@ -55,7 +58,7 @@ public class EcoflowDeviceDiscoveryService extends AbstractThingHandlerDiscovery
             this::scanForDevices);
 
     public EcoflowDeviceDiscoveryService() {
-        super(EcoflowApiHandler.class, Set.of(THING_TYPE_DELTA2), DISCOVER_TIMEOUT_SECONDS, false);
+        super(EcoflowApiHandler.class, SUPPORTED_THING_TYPES_UIDS, DISCOVER_TIMEOUT_SECONDS, false);
     }
 
     @Override
@@ -127,6 +130,8 @@ public class EcoflowDeviceDiscoveryService extends AbstractThingHandlerDiscovery
         ThingTypeUID thingTypeUID = switch (device.productName) {
             case "DELTA 2" -> THING_TYPE_DELTA2;
             case "DELTA 2 Max" -> THING_TYPE_DELTA2MAX;
+            // TODO correct product name???
+            case "PowerOcean" -> THING_TYPE_POWER_OCEAN;
             case "PowerStream" -> THING_TYPE_POWERSTREAM;
             default -> null;
         };

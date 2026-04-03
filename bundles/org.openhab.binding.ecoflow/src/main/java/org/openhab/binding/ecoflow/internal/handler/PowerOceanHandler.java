@@ -16,7 +16,6 @@ import static org.openhab.binding.ecoflow.internal.EcoflowBindingConstants.Delta
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.openhab.core.library.types.DecimalType;
@@ -33,10 +32,10 @@ import org.openhab.core.types.UnDefType;
 import com.google.gson.JsonObject;
 
 /**
- * @author Danny Baumann - Initial contribution
+ * @author Christoph Weitkamp - Initial contribution
  */
 @NonNullByDefault
-public class Delta2Handler extends AbstractEcoflowDeviceHandler {
+public class PowerOceanHandler extends AbstractEcoflowDeviceHandler {
     private int nextControlId = 1;
 
     private static final ValueConverter PERCENT_DECIMAL_CONVERTER = value -> new DecimalType(value.getAsNumber());
@@ -119,16 +118,8 @@ public class Delta2Handler extends AbstractEcoflowDeviceHandler {
             new ChannelMapping("pd", "chgPowerDC", CHANNEL_ID_SOLAR_ENERGY, 1, Units.WATT_HOUR),
             new ChannelMapping("pd", "XT150Watts1", CHANNEL_ID_EXTRA_BATTERY_POWER, 1, Units.WATT));
 
-    private static final List<ChannelMapping> MAX_ONLY_MAPPINGS = List.of(
-            new ChannelMapping("mppt", "pv2InVol", CHANNEL_ID_MAX_PV2_IN_VOLTAGE, 0.001, Units.VOLT),
-            new ChannelMapping("mppt", "pv2InAmp", CHANNEL_ID_MAX_PV2_IN_CURRENT, 0.001, Units.AMPERE),
-            new ChannelMapping("mppt", "pv2InWatts", CHANNEL_ID_MAX_PV2_IN_POWER, 1, Units.WATT),
-            new ChannelMapping("mppt", "pv2ChgState", CHANNEL_ID_MAX_PV2_IN_STATE, SOLAR_INPUT_STATE_CONVERTER),
-            new ChannelMapping("mppt", "pv2ChgType", CHANNEL_ID_MAX_PV2_IN_TYPE, SOLAR_INPUT_STATE_CONVERTER),
-            new ChannelMapping("pd", "XT150Watts2", CHANNEL_ID_MAX_EXTRA_BATTERY2_POWER, 1, Units.WATT));
-
-    public Delta2Handler(Thing thing, boolean isDelta2Max) {
-        super(thing, isDelta2Max ? Stream.concat(MAPPINGS.stream(), MAX_ONLY_MAPPINGS.stream()).toList() : MAPPINGS);
+    public PowerOceanHandler(Thing thing) {
+        super(thing, MAPPINGS);
     }
 
     @Override

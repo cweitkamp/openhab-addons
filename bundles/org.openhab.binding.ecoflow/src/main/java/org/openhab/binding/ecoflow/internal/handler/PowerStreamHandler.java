@@ -36,7 +36,7 @@ import com.google.gson.JsonObject;
  * @author Danny Baumann - Initial contribution
  */
 @NonNullByDefault
-public class PowerStreamHandler extends AbstractEcoflowHandler {
+public class PowerStreamHandler extends AbstractEcoflowDeviceHandler {
     private static final ValueConverter INVERTER_STATUS_CONVERTER = value -> {
         return switch (value.getAsInt()) {
             case 1 -> new StringType("idle");

@@ -24,7 +24,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.openhab.binding.ecoflow.internal.api.EcoflowApi;
 import org.openhab.binding.ecoflow.internal.api.EcoflowApiException;
 import org.openhab.binding.ecoflow.internal.api.dto.response.DeviceListResponseEntry;
-import org.openhab.binding.ecoflow.internal.config.EcoflowDeltaConfiguration;
+import org.openhab.binding.ecoflow.internal.config.EcoflowDeviceConfiguration;
 import org.openhab.binding.ecoflow.internal.util.SchedulerTask;
 import org.openhab.core.i18n.ConfigurationException;
 import org.openhab.core.library.types.QuantityType;
@@ -49,15 +49,15 @@ import com.google.gson.JsonObject;
  * @author Danny Baumann - Initial contribution
  */
 @NonNullByDefault
-abstract class AbstractEcoflowHandler extends BaseThingHandler {
-    protected final Logger logger = LoggerFactory.getLogger(AbstractEcoflowHandler.class);
+abstract class AbstractEcoflowDeviceHandler extends BaseThingHandler {
+    protected final Logger logger = LoggerFactory.getLogger(AbstractEcoflowDeviceHandler.class);
 
     private final SchedulerTask initTask;
     protected String serialNumber = "<unset>";
     private final Map<String, ChannelMapping> mappingsByListId = new HashMap<>();
     private final Map<String, Map<String, ChannelMapping>> mappingsByMqttId = new HashMap<>();
 
-    protected AbstractEcoflowHandler(Thing thing, List<ChannelMapping> mappings) {
+    protected AbstractEcoflowDeviceHandler(Thing thing, List<ChannelMapping> mappings) {
         super(thing);
         initTask = new SchedulerTask(scheduler, logger, "Init", this::initDevice);
 
@@ -101,7 +101,7 @@ abstract class AbstractEcoflowHandler extends BaseThingHandler {
 
     @Override
     public void initialize() {
-        serialNumber = getConfigAs(EcoflowDeltaConfiguration.class).serialNumber;
+        serialNumber = getConfigAs(EcoflowDeviceConfiguration.class).serialNumber;
         if (serialNumber.isBlank()) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.COMMUNICATION_ERROR,
                     "@text/offline.config-error-no-serial");

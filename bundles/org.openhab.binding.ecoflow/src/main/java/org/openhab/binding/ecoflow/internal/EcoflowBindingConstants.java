@@ -29,8 +29,10 @@ public class EcoflowBindingConstants {
     public static final ThingTypeUID THING_TYPE_API = new ThingTypeUID(BINDING_ID, "ecoflow-api");
     public static final ThingTypeUID THING_TYPE_DELTA2 = new ThingTypeUID(BINDING_ID, "delta2");
     public static final ThingTypeUID THING_TYPE_DELTA2MAX = new ThingTypeUID(BINDING_ID, "delta2-max");
+    public static final ThingTypeUID THING_TYPE_POWER_OCEAN = new ThingTypeUID(BINDING_ID, "power-ocean");
     public static final ThingTypeUID THING_TYPE_POWERSTREAM = new ThingTypeUID(BINDING_ID, "powerstream");
 
+    // Delta 2 and Delta 2 Max channels
     public class DeltaChannels {
         public static final String CHANNEL_ID_BATTERY_SOC = "status#battery-level";
         public static final String CHANNEL_ID_INPUT_POWER = "status#input-power";
@@ -88,6 +90,11 @@ public class EcoflowBindingConstants {
         public static final String CHANNEL_ID_MAX_PV2_IN_STATE = "solar-input#charge-state2";
         public static final String CHANNEL_ID_MAX_PV2_IN_TYPE = "solar-input#input-type2";
         public static final String CHANNEL_ID_MAX_EXTRA_BATTERY2_POWER = "battery#extra-battery2-power";
+    }
+
+    // Power Ocean channels
+    public class PowerOceanChannels extends DeltaChannels {
+        // TODO
     }
 
     // PowerStream channels

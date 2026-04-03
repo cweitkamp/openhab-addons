@@ -73,7 +73,7 @@ public class EcoflowApiHandler extends BaseBridgeHandler {
     private @Nullable MqttConnection mqttConnection;
 
     private final Object mqttConnectionLock = new Object();
-    private final Map<String, AbstractEcoflowHandler> activeChildHandlers = new HashMap<>();
+    private final Map<String, AbstractEcoflowDeviceHandler> activeChildHandlers = new HashMap<>();
 
     public EcoflowApiHandler(Bridge bridge, HttpClient httpClient) {
         super(bridge);
@@ -118,7 +118,7 @@ public class EcoflowApiHandler extends BaseBridgeHandler {
     public void childHandlerInitialized(ThingHandler childHandler, Thing childThing) {
         super.childHandlerInitialized(childHandler, childThing);
         logger.debug("child handler {} initialized", childHandler);
-        if (childHandler instanceof AbstractEcoflowHandler deviceHandler) {
+        if (childHandler instanceof AbstractEcoflowDeviceHandler deviceHandler) {
             synchronized (mqttConnectionLock) {
                 MqttConnection connection = mqttConnection;
                 activeChildHandlers.put(deviceHandler.getSerialNumber(), deviceHandler);
@@ -142,7 +142,7 @@ public class EcoflowApiHandler extends BaseBridgeHandler {
     public void childHandlerDisposed(ThingHandler childHandler, Thing childThing) {
         super.childHandlerDisposed(childHandler, childThing);
         logger.debug("child handler {} disposed", childHandler);
-        if (childHandler instanceof AbstractEcoflowHandler deviceHandler) {
+        if (childHandler instanceof AbstractEcoflowDeviceHandler deviceHandler) {
             synchronized (mqttConnectionLock) {
                 final MqttConnection connection = mqttConnection;
                 activeChildHandlers.remove(deviceHandler.getSerialNumber());
@@ -228,7 +228,7 @@ public class EcoflowApiHandler extends BaseBridgeHandler {
 
                 mqttConnection = connection;
 
-                for (AbstractEcoflowHandler handler : activeChildHandlers.values()) {
+                for (AbstractEcoflowDeviceHandler handler : activeChildHandlers.values()) {
                     handler.handleMqttConnected();
                 }
             } catch (InterruptedException e) {
@@ -289,7 +289,7 @@ public class EcoflowApiHandler extends BaseBridgeHandler {
         if (publish == null) {
             return;
         }
-        final AbstractEcoflowHandler handler = findHandlerForTopic(publish.getTopic());
+        final AbstractEcoflowDeviceHandler handler = findHandlerForTopic(publish.getTopic());
         if (handler != null) {
             handler.handleQuotaMessage(extractPayload(publish));
         }
@@ -299,14 +299,14 @@ public class EcoflowApiHandler extends BaseBridgeHandler {
         if (publish == null) {
             return;
         }
-        final AbstractEcoflowHandler handler = findHandlerForTopic(publish.getTopic());
+        final AbstractEcoflowDeviceHandler handler = findHandlerForTopic(publish.getTopic());
         if (handler != null) {
             handler.handleStatusMessage(extractPayload(publish));
         }
     }
 
     @Nullable
-    private AbstractEcoflowHandler findHandlerForTopic(MqttTopic topic) {
+    private AbstractEcoflowDeviceHandler findHandlerForTopic(MqttTopic topic) {
         List<String> levels = topic.getLevels();
         if (levels.size() != 5) {
             throw new IllegalStateException("Unexpected topic " + topic);

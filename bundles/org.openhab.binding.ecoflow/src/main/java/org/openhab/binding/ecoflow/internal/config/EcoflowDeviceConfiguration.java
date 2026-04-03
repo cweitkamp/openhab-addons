@@ -18,6 +18,6 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
  * @author Danny Baumann - Initial contribution
  */
 @NonNullByDefault
-public class EcoflowDeltaConfiguration {
+public class EcoflowDeviceConfiguration {
     public String serialNumber = "";
 }
