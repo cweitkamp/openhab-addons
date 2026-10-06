@@ -56,13 +56,15 @@ public abstract class AbstractHomematicIPDeviceDiscoveryService<T extends Abstra
     private static final String SHUTTER_CONTACT_INVISIBLE = "SHUTTER_CONTACT_INVISIBLE";
     private static final String SHUTTER_CONTACT_MAGNETIC = "SHUTTER_CONTACT_MAGNETIC";
     private static final String WALL_MOUNTED_THERMOSTAT_PRO = "WALL_MOUNTED_THERMOSTAT_PRO";
+    private static final String TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR = "TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR";
 
     private static final String THING_PROPERTY_ID = "id";
 
     private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES = Set.of(THING_TYPE_ENERGY_SENSORS_INTERFACE,
             THING_TYPE_GAS_SENSORS_INTERFACE, THING_TYPE_SHUTTER_CONTACT, THING_TYPE_THERMOSTAT,
             THING_TYPE_THERMOSTAT_EVO, THING_TYPE_WALL_MOUNTED_THERMOSTAT, THING_TYPE_UNDERFLOOR_HEATING_ACTUATOR,
-            THING_TYPE_OUTLET, THING_TYPE_PRESENCE_SENSOR, THING_TYPE_HEATING_GROUP);
+            THING_TYPE_OUTLET, THING_TYPE_PRESENCE_SENSOR, THING_TYPE_TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR,
+            THING_TYPE_HEATING_GROUP);
 
     private static final int TIMEOUT = 10;
 
@@ -122,6 +124,9 @@ public abstract class AbstractHomematicIPDeviceDiscoveryService<T extends Abstra
                 break;
             case WALL_MOUNTED_THERMOSTAT_PRO:
                 thingTypeUID = THING_TYPE_WALL_MOUNTED_THERMOSTAT;
+                break;
+            case TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR:
+                thingTypeUID = THING_TYPE_TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR;
                 break;
             default:
                 logger.debug("Discovered unknown device of type '{}'. Please contact the binding developer.", type);

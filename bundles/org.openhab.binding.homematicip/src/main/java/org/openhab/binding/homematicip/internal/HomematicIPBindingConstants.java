@@ -59,6 +59,8 @@ public class HomematicIPBindingConstants {
             "underfloor-heating-actuator");
     public static final ThingTypeUID THING_TYPE_OUTLET = new ThingTypeUID(BINDING_ID, "outlet");
     public static final ThingTypeUID THING_TYPE_PRESENCE_SENSOR = new ThingTypeUID(BINDING_ID, "presence-sensor");
+    public static final ThingTypeUID THING_TYPE_TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR = new ThingTypeUID(BINDING_ID,
+            "temperature-humidity-sensor");
     public static final ThingTypeUID THING_TYPE_HEATING_GROUP = new ThingTypeUID(BINDING_ID, "heating-group");
 
     public static final String CHANNEL_GROUP_WAETHER = "weather";

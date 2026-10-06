@@ -28,6 +28,7 @@ import org.openhab.binding.homematicip.internal.handler.HomematicIPHomeControlUn
 import org.openhab.binding.homematicip.internal.handler.HomematicIPOutletHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPPresenceSensorHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPShutterContactHandler;
+import org.openhab.binding.homematicip.internal.handler.HomematicIPTemperatureHumiditySensorHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPUnderfloorHeatingActuatorHandler;
 import org.openhab.binding.homematicip.internal.handler.HomematicIPWallMountedThermostatHandler;
 import org.openhab.core.io.net.http.HttpClientFactory;
@@ -55,7 +56,7 @@ public class HomematicIPHandlerFactory extends BaseThingHandlerFactory {
             BRIDGE_TYPE_ACCESS_POINT, THING_TYPE_ENERGY_SENSORS_INTERFACE, THING_TYPE_GAS_SENSORS_INTERFACE,
             THING_TYPE_SHUTTER_CONTACT, THING_TYPE_THERMOSTAT, THING_TYPE_THERMOSTAT_EVO,
             THING_TYPE_WALL_MOUNTED_THERMOSTAT, THING_TYPE_UNDERFLOOR_HEATING_ACTUATOR, THING_TYPE_OUTLET,
-            THING_TYPE_PRESENCE_SENSOR, THING_TYPE_HEATING_GROUP);
+            THING_TYPE_PRESENCE_SENSOR, THING_TYPE_TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR, THING_TYPE_HEATING_GROUP);
 
     private final HttpClient httpClient;
     private final WebSocketFactory webSocketFactory;
@@ -95,6 +96,8 @@ public class HomematicIPHandlerFactory extends BaseThingHandlerFactory {
             return new HomematicIPOutletHandler(thing);
         } else if (THING_TYPE_PRESENCE_SENSOR.equals(thingTypeUID)) {
             return new HomematicIPPresenceSensorHandler(thing);
+        } else if (THING_TYPE_TEMPERATURE_HUMIDITY_SENSOR_OUTDOOR.equals(thingTypeUID)) {
+            return new HomematicIPTemperatureHumiditySensorHandler(thing);
         } else if (THING_TYPE_HEATING_GROUP.equals(thingTypeUID)) {
             return new HomematicIPHeatingGroupHandler(thing, homematicIPDynamicStateDescriptionProvider);
         } else if (BRIDGE_TYPE_HOME_CONTROL_UNIT.equals(thingTypeUID)) {

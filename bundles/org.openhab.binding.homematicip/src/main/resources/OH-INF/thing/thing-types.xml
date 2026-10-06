@@ -271,6 +271,29 @@
 		<config-description-ref uri="thing-type:homematicip:device"/>
 	</thing-type>
 
+	<thing-type id="temperature-humidity-sensor">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="access-point"/>
+			<bridge-type-ref id="home-control-unit"/>
+		</supported-bridge-type-refs>
+
+		<label>Temperature Humidity Sensor</label>
+		<description>A temperature and humidity sensor (e.g. HmIP-STHO-A). Enables, for example, smart ventilation or de-humidification control.</description>
+
+		<channel-groups>
+			<channel-group id="device" typeId="battery-powered-device"/>
+			<channel-group id="sensors" typeId="temperature-and-humidity-sensors"/>
+		</channel-groups>
+
+		<properties>
+			<property name="thingTypeVersion">1</property>
+		</properties>
+
+		<representation-property>id</representation-property>
+
+		<config-description-ref uri="thing-type:homematicip:device"/>
+	</thing-type>
+
 	<thing-type id="heating-group">
 		<supported-bridge-type-refs>
 			<bridge-type-ref id="access-point"/>
