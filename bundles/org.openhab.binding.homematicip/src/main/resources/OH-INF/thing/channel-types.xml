@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="homematicip"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<channel-type id="condition">
+		<item-type>String</item-type>
+		<label>Weather Condition</label>
+		<description>Current weather condition.</description>
+		<category>Sun_Clouds</category>
+		<state readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="forecasted-min-outdoor-temperature" advanced="true">
+		<item-type>Number:Temperature</item-type>
+		<label>Minimum Temperature</label>
+		<description>Minimum forecasted outdoor temperature.</description>
+		<category>Temperature</category>
+		<tags>
+			<tag>Forecast</tag>
+			<tag>Temperature</tag>
+		</tags>
+		<state readOnly="true" pattern="%.1f %unit%"/>
+	</channel-type>
+
+	<channel-type id="forecasted-max-outdoor-temperature" advanced="true">
+		<item-type>Number:Temperature</item-type>
+		<label>Maximum Temperature</label>
+		<description>Maximum forecasted outdoor temperature.</description>
+		<category>Temperature</category>
+		<tags>
+			<tag>Forecast</tag>
+			<tag>Temperature</tag>
+		</tags>
+		<state readOnly="true" pattern="%.1f %unit%"/>
+	</channel-type>
+
+	<channel-type id="humidity">
+		<item-type unitHint="%">Number:Dimensionless</item-type>
+		<label>Current Humidity</label>
+		<description>Current measured humidity.</description>
+		<category>Humidity</category>
+		<tags>
+			<tag>Measurement</tag>
+			<tag>Humidity</tag>
+		</tags>
+		<state pattern="%.0f %unit%" readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="temperature">
+		<item-type>Number:Temperature</item-type>
+		<label>Temperature Control</label>
+		<description>Controls the temperature.</description>
+		<category>Heating</category>
+		<tags>
+			<tag>Setpoint</tag>
+			<tag>Temperature</tag>
+		</tags>
+		<state pattern="%.1f %unit%"/>
+	</channel-type>
+
+	<channel-type id="alarm-mode">
+		<item-type>String</item-type>
+		<label>Alarm Mode</label>
+		<description>States the alarm mode (NONE/EXTERNAL/INTERNAL).</description>
+		<state pattern="%s" readOnly="true">
+			<options>
+				<option value="NONE">None</option>
+				<option value="EXTERNAL">External</option>
+				<option value="INTERNAL">Internal</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="heating-profile">
+		<item-type>String</item-type>
+		<label>Heating Profile</label>
+		<description>Changes the active heating profile.</description>
+		<category>Heating</category>
+		<state pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="mode">
+		<item-type>String</item-type>
+		<label>Mode</label>
+		<description>States the mode of the device (MANUAL/AUTOMATIC/ECO).</description>
+		<state pattern="%s" readOnly="true">
+			<options>
+				<option value="MANUAL">Manual</option>
+				<option value="AUTOMATIC">Automatic</option>
+				<option value="ECO">Eco</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="locked" advanced="true">
+		<item-type>Contact</item-type>
+		<label>Locked</label>
+		<description>Device is locked for switching by pressing the button on the device.</description>
+		<category>Lock</category>
+		<state pattern="%s" readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="display-mode" advanced="true">
+		<item-type>String</item-type>
+		<label>Display Mode</label>
+		<description>Changes the display mode.</description>
+		<state pattern="%s">
+			<options>
+				<option value="SETPOINT">Temperature Control</option>
+				<option value="ACTUAL">Current Temperature</option>
+				<option value="ACTUAL_HUMIDITY">Current Temperature and Humidity</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="display-orientation" advanced="true">
+		<item-type>String</item-type>
+		<label>Display Orientation</label>
+		<description>Changes the display orientation.</description>
+		<state pattern="%s" readOnly="true">
+			<options>
+				<option value="LEFT">Left</option>
+				<option value="RIGHT">Right</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="display-contrast">
+		<item-type>Number</item-type>
+		<label>Display Contrast</label>
+		<description>Changes the display contrast.</description>
+		<state min="1" max="16" step="1" pattern="%d" readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="valve-state">
+		<item-type>String</item-type>
+		<label>Valve State</label>
+		<description>Current valve state.</description>
+		<state pattern="%s" readOnly="true">
+			<options>
+				<option value="WAIT_FOR_ADAPTION">WAIT_FOR_ADAPTION</option>
+				<option value="ADAPTION_DONE">ADAPTION_DONE</option>
+				<option value="ADJUSTMENT_TOO_SMALL">ADJUSTMENT_TOO_SMALL</option>
+				<option value="ADJUSTMENT_TOO_BIG">ADJUSTMENT_TOO_BIG</option>
+			</options>
+		</state>
+	</channel-type>
+
+	<channel-type id="position">
+		<item-type unitHint="%">Number:Dimensionless</item-type>
+		<label>Valve Position</label>
+		<description>Current valve position.</description>
+		<state pattern="%.0f %unit%" readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="gas-flow">
+		<item-type>Number:VolumetricFlowRate</item-type>
+		<label>Gas Flow</label>
+		<description>Current gas flow</description>
+		<category>Energy</category>
+		<tags>
+			<tag>Measurement</tag>
+			<tag>Energy</tag>
+		</tags>
+		<state pattern="%.1f %unit%" readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="gas-volume">
+		<item-type>Number:Volume</item-type>
+		<label>Gas Volume</label>
+		<description>Current gas volume</description>
+		<category>Energy</category>
+		<tags>
+			<tag>Measurement</tag>
+			<tag>Energy</tag>
+		</tags>
+		<state pattern="%.1f %unit%" readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="contact-state">
+		<item-type>Contact</item-type>
+		<label>Contact State</label>
+		<description>Current contact state information.</description>
+		<state pattern="%s" readOnly="true"/>
+	</channel-type>
+
+	<channel-type id="light-level" advanced="true">
+		<item-type>Number</item-type>
+		<label>Light Level</label>
+		<description>Current light level with values 1 (dark) to 255 (bright).</description>
+		<state pattern="%.1f" readOnly="true"/>
+	</channel-type>
+</thing:thing-descriptions>

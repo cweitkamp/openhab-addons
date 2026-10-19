@@ -1,0 +1,7 @@
+{
+	"urlREST": "https://srz14.homematic.com:6969",
+	"urlWebSocket": "wss://srz14.homematic.com:8888",
+	"apiVersion": "12",
+	"primaryAccessPointId": "AAJIG8NMG34KD99Z8FP6V01W",
+	"requestingAccessPointId": "AAJIG8NMG34KD99Z8FP6V01W"
+}
